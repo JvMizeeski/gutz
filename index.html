@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Íntimas - Camila Gutz</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Nobile:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Alpine.js (para o Acordeão do FAQ) -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <style>
+        /* Configuração das fontes */
+        :root {
+            --font-urbanist: 'Urbanist', sans-serif;
+            --font-nobile: 'Nobile', sans-serif;
+        }
+        
+        /* Classe para o gradiente de texto principal */
+        .text-gradient {
+            background-image: linear-gradient(to right, #FF7562, #9B3BF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        /* Classe para o gradiente de texto secundário (baseado na ref) */
+        .text-gradient-pink {
+            background-image: linear-gradient(to right, #FF7562, #EB8AF3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        /* Animação da faixa "oferta limitada" */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .marquee-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+        .marquee-track span {
+            display: inline-block;
+            padding: 0 2rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        /* Sombra do botão CTA */
+        .cta-button {
+            background-color: #00D13C;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px #00FF66;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #00FF66;
+        }
+
+        /* Estilos do Acordeão (FAQ) */
+        [x-cloak] {
+            display: none;
+        }
+    </style>
+    
+    <script>
+        // Configuração de cores do Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Urbanist', 'sans-serif'],
+                        serif: ['Nobile', 'sans-serif'], // Usando serif como alias para Nobile
+                    },
+                    colors: {
+                        brand: {
+                            'pink': '#EB8AF3',
+                            'purple': '#9B3BF8',
+                            'orange': '#FF7562',
+                            'green': '#00D13C',
+                            'dark': '#121212',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-white font-sans overflow-x-hidden">
+
+    <!-- Seção: Faixa "Oferta Limitada" -->
+    <div class="w-full bg-brand-orange py-3 -rotate-2 relative z-10 shadow-lg">
+        <div class="marquee">
+            <div class="marquee-track">
+                <span>oferta limitada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <span>oferta limitada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <span>oferta limitada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                
+                <!-- Repetido para loop contínuo -->
+                <span>oferta limitada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <span>oferta limitada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                <span>oferta limitada</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block w-6 h-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção Hero -->
+    <header class="bg-black py-16 lg:py-24 px-6 text-center overflow-hidden">
+        <!-- Placeholder para Logo (Substitua pelo seu <img>) -->
+        <h1 class="font-black text-6xl lg:text-9xl text-gradient tracking-tighter">
+            BLACK ÍNTIMAS
+        </h1>
+        
+        <h2 class="text-brand-pink font-bold text-2xl lg:text-4xl tracking-widest uppercase mt-4">
+            INSCRIÇÕES ABERTAS
+        </h2>
+        
+        <p class="font-bold text-xl lg:text-3xl mt-8 max-w-3xl mx-auto">
+            COMBO EXCLUSIVO COM ATÉ <span class="text-gradient-pink">90% DE DESCONTO</span>
+        </p>
+        
+        <p class="font-serif text-lg lg:text-xl mt-4 max-w-2xl mx-auto text-gray-300">
+            Esta é a melhor oportunidade do ano para você finalmente transformar sua vida íntima e desfrutar de cada momento com mais saúde, prazer, liberdade e confiança.
+        </p>
+        
+        <a href="#link-checkout" class="cta-button inline-block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-10 w-full lg:w-auto">
+            [QUERO APROVEITAR A BLACK AGORA]
+        </a>
+    </header>
+
+    <!-- Seção Testimonials 1 -->
+    <section class="py-16 lg:py-24 bg-brand-dark px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-serif text-2xl lg:text-3xl text-center max-w-3xl mx-auto">
+                Se o Ritmo Íntimo sozinho já causa tudo isso… <br>
+                (E não sou eu que tá dizendo 👀)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <!-- Depoimentos 1-8 (Placeholders) -->
+                <!-- Você pode substituir por <img> ou iframes do YouTube -->
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+1" alt="Depoimento 1" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 1</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+2" alt="Depoimento 2" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 2</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+3" alt="Depoimento 3" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 3</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+4" alt="Depoimento 4" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 4</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+5" alt="Depoimento 5" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 5</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+6" alt="Depoimento 6" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 6</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+7" alt="Depoimento 7" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 7</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+8" alt="Depoimento 8" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 8</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Seção: Oferta Principal (O Combo) -->
+    <section class="py-16 lg:py-24 px-6 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl lg:text-5xl text-center max-w-3xl mx-auto">
+                Imagina o <span class="text-gradient">Combo exclusivo</span> que eu preparei especialmente para você na Black íntimas:
+            </h2>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 mt-16">
+                <!-- Coluna do Mockup -->
+                <div class="w-full lg:w-1/2">
+                    <img src="https://placehold.co/600x450/333/888?text=Mockup+do+combo+exclusivo" alt="Mockup do combo exclusivo" class="rounded-lg shadow-2xl w-full">
+                </div>
+                
+                <!-- Coluna do Conteúdo da Oferta -->
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <!-- Item 1 -->
+                    <div class="bg-gray-900 p-6 rounded-lg border border-brand-purple/50">
+                        <h3 class="font-bold text-2xl text-brand-pink">RITMO ÍNTIMO <span class="text-white text-lg line-through opacity-70 ml-2">R$ 997,00</span></h3>
+                        <p class="font-serif text-lg text-gray-300 mt-2">Método completo de neopompoarismo + App exclusivo + exercícios guiados pra você fazer quando e onde quiser</p>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="bg-gray-900 p-6 rounded-lg border border-brand-purple/50">
+                        <h3 class="font-bold text-2xl text-brand-pink">COMUNIDADE ÍNTIMAS <span class="text-white text-lg line-through opacity-70 ml-2">R$ 497,00</span></h3>
+                        <p class="font-serif text-lg text-gray-300 mt-2">Minha nova comunidade exclusiva com alunas que estão na mesma jornada que você, onde terá acesso a conteúdos, benefícios, bônus e presentes exclusivos</p>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="bg-gray-900 p-6 rounded-lg border border-brand-purple/50">
+                        <h3 class="font-bold text-2xl text-brand-pink">MENTORIA AO VIVO 1X POR MÊS <span class="text-white text-lg line-through opacity-70 ml-2">R$ 1.997,00</span></h3>
+                        <p class="font-serif text-lg text-gray-300 mt-2">Suporte direto, tira-dúvidas e acompanhamento personalizado pra te ajudar a potencializar seus resultados</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Box de Preço -->
+            <div class="bg-gradient-to-r from-brand-purple to-brand-pink p-8 lg:p-12 rounded-lg text-center mt-16 max-w-4xl mx-auto shadow-2xl">
+                <p class="font-serif text-2xl lg:text-3xl text-white uppercase tracking-wider">de</p>
+                <p class="font-black text-4xl lg:text-6xl text-white line-through opacity-80 my-2">R$3.151,00</p>
+                <p class="font-serif text-2xl lg:text-3xl text-white uppercase tracking-wider">por até</p>
+                <p class="font-black text-6xl lg:text-8xl text-white my-2">12x de R$39,03</p>
+            </div>
+            
+            <a href="#link-checkout" class="cta-button block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-10 max-w-3xl mx-auto text-center">
+                [GARANTIR MINHA VAGA COM ATÉ 90% OFF]
+            </a>
+        </div>
+    </section>
+    
+    <!-- Seção: Bônus -->
+    <section class="py-16 lg:py-24 bg-brand-dark px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-bold text-4xl lg:text-5xl text-center max-w-3xl mx-auto">
+                MAS CALMA... VOCÊ AINDA VAI GANHAR <span class="text-gradient-pink">5 BÔNUS INCRÍVEIS:</span>
+            </h2>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 mt-16">
+                <!-- Coluna do Mockup dos Bônus -->
+                <div class="w-full lg:w-1/2">
+                    <img src="https://placehold.co/600x600/333/888?text=Mockup+dos+Bônus" alt="Mockup dos Bônus" class="rounded-lg shadow-2xl w-full">
+                </div>
+                
+                <!-- Coluna da Lista de Bônus -->
+                <div class="w-full lg:w-1/2 space-y-4">
+                    <!-- Bônus 1 -->
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-orange/50">
+                        <p class="text-lg font-serif"><span class="text-brand-orange font-bold">1 ANO DE ACESSO EXTRA (24h)</span> <span class="line-through opacity-70">R$997</span> <span class="font-bold text-brand-green">R$0</span> 🎁</p>
+                        <p class="text-sm font-serif text-gray-300">12 meses extras para continuar evoluindo (valor inestimável!), totalizando 2 anos de acesso ao APP + curso</p>
+                    </div>
+                    <!-- Bônus 2 -->
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-orange/50">
+                        <p class="text-lg font-serif"><span class="text-brand-orange font-bold">MAESTRO DO PRAZER</span> <span class="line-through opacity-70">R$997</span> <span class="font-bold text-brand-green">R$0</span> 🎁</p>
+                        <p class="text-sm font-serif text-gray-300">Método completo de neopompoarismo para homens. <span class="font-bold text-brand-pink block">Lançamento EXCLUSIVO PARA A BLACK</span></p>
+                    </div>
+                    <!-- Bônus 3 -->
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-orange/50">
+                        <p class="text-lg font-serif"><span class="text-brand-orange font-bold">CURSO DANÇA SENSUAL</span> <span class="line-through opacity-70">R$147</span> <span class="font-bold text-brand-green">R$0</span> 🎁</p>
+                        <p class="text-sm font-serif text-gray-300">Reconecte-se com sua sensualidade através do movimento. <span class="font-bold text-brand-pink block">Lançamento EXCLUSIVO PARA A BLACK</span></p>
+                    </div>
+                    <!-- Bônus 4 -->
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-orange/50">
+                        <p class="text-lg font-serif"><span class="text-brand-orange font-bold">LIVRO DIGITAL: 101 PRELIMINARES</span> <span class="line-through opacity-70">R$97</span> <span class="font-bold text-brand-green">R$0</span> 🎁</p>
+                        <p class="text-sm font-serif text-gray-300">Ideias criativas para apimentar sua vida íntima. <span class="font-bold text-brand-pink block">Lançamento EXCLUSIVO PARA A BLACK</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#link-checkout" class="cta-button block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-12 max-w-3xl mx-auto text-center">
+                [QUERO TODOS OS BÔNUS AGORA]
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção: Urgência / Atenção -->
+    <section class="py-16 lg:py-24 bg-black px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="font-black text-4xl lg:text-5xl text-brand-orange uppercase">
+                MAS ATENÇÃO:
+            </h2>
+            <h3 class="font-bold text-3xl lg:text-4xl mt-4">
+                ESSA CONDIÇÃO SÓ EXISTE AGORA
+            </h3>
+            <p class="font-serif text-xl lg:text-2xl mt-8 text-gray-300">
+                Na Black Íntimas, você leva o combo exclusivo por <span class="font-bold text-white">R$397,00</span> (menos de R$ 1,09 por dia)
+            </p>
+            <p class="font-serif text-lg lg:text-xl mt-4 text-gray-300">
+                É bem menos do que um cafézinho e pode te livrar de precisar fazer uma cirurgia íntima no futuro.
+            </p>
+            <a href="#link-checkout" class="cta-button inline-block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-10 w-full lg:w-auto">
+                [QUERO APROVEITAR A BLACK AGORA]
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção: Benefícios (Checklist) -->
+    <section class="py-16 lg:py-24 bg-brand-dark px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="font-bold text-4xl lg:text-5xl text-center">
+                Imagine se sentir <span class="text-gradient">100% confortável</span> na sua própria pele todos os dias:
+            </h2>
+            <p class="font-serif text-xl lg:text-2xl text-center mt-4 text-gray-300">
+                Confiante , poderosa e pronta para sentir prazer sem culpa, medo ou vergonha…
+            </p>
+            
+            <h3 class="font-bold text-3xl lg:text-4xl text-center mt-16">
+                E se você pudesse:
+            </h3>
+            
+            <div class="columns-1 md:columns-2 gap-x-10 mt-10 space-y-6">
+                <!-- Lista de Benefícios -->
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Eliminar e prevenir aqueles <span class="font-bold text-white">escapes de xixi</span> constrangedores, e nunca mais ter que planejar sua vida em torno de um banheiro</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Acabar de vez com os <span class="font-bold text-white">puns na prikita</span> que roubam sua espontaneidade e te fazem evitar certas posições (você sabe do que eu tô falando!)</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Deixar ela <span class="font-bold text-white">mais apertadinha e sensível</span>, redescobrindo (ou descobrindo pela primeira vez!) sensações incríveis que você achava impossíveis</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Prevenir <span class="font-bold text-white">queda de bexiga e útero</span>, cuidando da sua saúde íntima agora para evitar problemas sérios ou necessidade de cirurgias no futuro (que custam CARO)</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Se preparar da melhor forma para <span class="font-bold text-white">gestação e pós-parto</span>, ajudando a prevenir e recuperar possíveis lacerações e outros problemas recorrentes</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Aumentar sua <span class="font-bold text-white">autoestima, autoconfiança e libido</span>, o que vai te fazer sentir mais poderosa, desejável, goxxxxtosa e completamente dona do seu prazer</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Aumentar MUITO o <span class="font-bold text-white">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Se soltar <span class="font-bold text-white">DE VERDADE na cama</span> sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
+                    <svg class="w-6 h-6 text-brand-pink flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <p class="font-serif text-lg text-gray-300">✔️Ter <span class="font-bold text-white">orgasmos intensos e profundos</span>, aqueles que fazem seu corpo inteiro vibrar, tremer e te deixam com aquele sorriso bobo no rosto por horas</p>
+                </div>
+            </div>
+            
+            <a href="#link-checkout" class="cta-button block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-12 max-w-3xl mx-auto text-center">
+                [EU QUERO CUIDAR DA MINHA SAÚDE]
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção Testimonials 2 -->
+    <section class="py-16 lg:py-24 bg-black px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-serif text-2xl lg:text-3xl text-center max-w-3xl mx-auto">
+                Essa foi a transformação que elas viveram, e você também pode:
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <!-- Depoimentos 1-8 (Placeholders) -->
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+1" alt="Depoimento 1" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 1</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+2" alt="Depoimento 2" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 2</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+3" alt="Depoimento 3" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 3</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+4" alt="Depoimento 4" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 4</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+5" alt="Depoimento 5" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 5</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+6" alt="Depoimento 6" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 6</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+7" alt="Depoimento 7" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 7</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+8" alt="Depoimento 8" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 8</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: Dor / Escolha -->
+    <section class="py-16 lg:py-24 bg-brand-dark px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-3xl lg:text-4xl">
+                CADA DIA QUE PASSA É UM DIA A MENOS VIVENDO A VIDA QUE VOCÊ MERECE. QUANTAS VEZES VOCÊ JÁ:
+            </h2>
+            
+            <div class="space-y-4 text-2xl lg:text-3xl font-serif text-gray-300 mt-10 max-w-lg mx-auto text-left">
+                <p>❌ Evitou usar aquela roupa por medo de escape?</p>
+                <p>❌ Deixou de fazer certas posições por vergonha?</p>
+                <p>❌ Fingiu estar cansada porque simplesmente não sentia prazer?</p>
+            </div>
+            
+            <p class="font-serif text-xl lg:text-2xl mt-10">
+                Cada dia que você adia é mais um dia convivendo com esses desconfortos.
+            </p>
+            
+            <h3 class="font-bold text-4xl lg:text-5xl mt-16 text-gradient-pink">
+                DAQUI A 1 ANO, VOCÊ QUER ESTAR:
+            </h3>
+            
+            <div class="flex flex-col lg:flex-row gap-8 mt-10">
+                <div class="w-full lg:w-1/2 bg-gray-900 p-8 rounded-lg border border-red-500/50 text-left">
+                    <p class="font-serif text-2xl text-red-400">AINDA evitando roupas, fingindo prazer e se sentindo insegura?</p>
+                </div>
+                <div class="w-full lg:w-1/2 bg-gray-900 p-8 rounded-lg border border-brand-green/50 text-left">
+                    <p class="font-serif text-2xl text-green-400">OU no controle total do seu corpo, sentindo orgasmos intensos e radiante de confiança?</p>
+                </div>
+            </div>
+            
+            <p class="font-bold text-2xl lg:text-3xl mt-10">
+                A escolha é sua. Mas essa condição especial só existe AGORA e não se repetirá.
+            </p>
+            
+            <a href="#link-checkout" class="cta-button inline-block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-10 w-full lg:w-auto">
+                [QUERO COMEÇAR A VIVER A VIDA QUE EU MEREÇO]
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção: Por que é Diferente -->
+    <section class="py-16 lg:py-24 bg-black px-6">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div class="w-full lg:w-1/2">
+                <h2 class="font-bold text-4xl lg:text-5xl">
+                    POR QUE O <span class="text-gradient">RITMO ÍNTIMO</span> É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU?
+                </h2>
+                <p class="font-serif text-xl lg:text-2xl text-gray-300 mt-8">
+                    Porque ele foi criado pela Camila Gutz, uma fisioterapeuta pélvica que já viveu muitos desses desconfortos na pele, já ajudou <span class="font-bold text-white">mais de 33 mil mulheres</span> a recuperar sua autoestima, redescobrir o prazer nas relações e se tornarem mais felizes, seguras e plenas - na cama e na vida.
+                </p>
+                <p class="font-serif text-xl lg:text-2xl text-gray-300 mt-6">
+                    O Ritmo Íntimo é muito mais do que um curso de pompoarismo moderno:
+                </p>
+                <p class="font-bold text-3xl lg:text-4xl text-brand-pink mt-6">
+                    É um caminho de volta para VOCÊ.
+                </p>
+            </div>
+            <div class="w-full lg:w-1/2">
+                <!-- Placeholder para foto da Camila -->
+                <img src="https://placehold.co/600x700/333/888?text=Foto+da+Camila+Gutz" alt="Camila Gutz" class="rounded-lg shadow-2xl w-full">
+            </div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto text-center lg:text-left mt-16">
+            <p class="font-serif text-xl lg:text-2xl text-gray-300">
+                Você vai aprender, passo a passo, a despertar sua musculatura íntima com segurança, técnica e acolhimento real.
+            </p>
+            <p class="font-serif text-xl lg:text-2xl text-gray-300 mt-4">
+                Vai descobrir que sentir prazer, ter orgasmos intensos, eliminar escapes e se soltar na cama não é sorte.
+            </p>
+            <p class="font-bold text-3xl lg:text-4xl text-white mt-4">
+                É prática. É treino. É cuidado com você.
+            </p>
+            <p class="font-serif text-xl lg:text-2xl text-gray-300 mt-4">
+                E isso é só o começo da sua transformação.
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção Testimonials 3 -->
+    <section class="py-16 lg:py-24 bg-brand-dark px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <!-- Depoimentos 1-5 (Placeholders) -->
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+1" alt="Depoimento 1" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 1</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+2" alt="Depoimento 2" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 2</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+3" alt="Depoimento 3" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 3</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+4" alt="Depoimento 4" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 4</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center aspect-square flex flex-col justify-center items-center">
+                    <img src="https://placehold.co/100x100/333/888?text=Depoimento+5" alt="Depoimento 5" class="w-24 h-24 rounded-full mx-auto mb-4">
+                    <p class="font-bold">Depoimento 5</p>
+                </div>
+            </div>
+            
+            <a href="#link-checkout" class="cta-button block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-12 max-w-3xl mx-auto text-center">
+                [QUERO COMEÇAR MINHA TRANSFORMAÇÃO AGORA]
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção: Garantia -->
+    <section class="py-16 lg:py-24 bg-black px-6">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div class="w-full lg:w-1/2">
+                <img src="https://placehold.co/500x500/333/888?text=IMAGEM+DE+GARANTIA" alt="Garantia de 7 Dias" class="rounded-lg shadow-2xl w-full">
+            </div>
+            <div class="w-full lg:w-1/2">
+                <h2 class="font-bold text-4xl lg:text-5xl text-brand-pink">GARANTIA DE 7 DIAS</h2>
+                <h3 class="font-bold text-3xl lg:text-4xl mt-4">Sem Risco Pra Você!</h3>
+                <p class="font-serif text-xl lg:text-2xl text-gray-300 mt-8">
+                    Eu acredito tanto no poder do Ritmo Íntimo que quero que você tenha total segurança pra dar esse passo.
+                </p>
+                <p class="font-serif text-xl lg:text-2xl text-gray-300 mt-6">
+                    Você tem 7 dias pra experimentar e degustar o método. Se dentro desse período você sentir que não é pra você, é só me avisar que devolvemos 100% do seu investimento.
+                </p>
+                <p class="font-bold text-xl lg:text-2xl text-white mt-6">
+                    Sem perguntas, sem complicações, sem risco.
+                </p>
+                <p class="font-serif text-lg lg:text-xl text-gray-300 mt-6">
+                    OBS: O que você tem a perder? Bora descobrir o prazer e a confiança que você merece!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção: FAQ -->
+    <section class="py-16 lg:py-24 bg-brand-dark px-6" x-data="{ open: null }">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-bold text-4xl lg:text-5xl text-center">
+                Perguntas Frequentes
+            </h2>
+            
+            <div class="space-y-6 mt-12">
+                <!-- Pergunta 1 (Placeholder) -->
+                <div class="bg-gray-900 rounded-lg border border-brand-purple/50">
+                    <button @click="open = (open === 1 ? null : 1)" class="w-full flex justify-between items-center text-left p-6">
+                        <span class="font-bold text-xl lg:text-2xl">Para quem é o Ritmo Íntimo?</span>
+                        <span x-show="open !== 1" class="text-brand-pink text-3xl">+</span>
+                        <span x-show="open === 1" x-cloak class="text-brand-pink text-3xl">-</span>
+                    </button>
+                    <div x-show="open === 1" x-collapse x-cloak>
+                        <p class="font-serif text-lg text-gray-300 p-6 pt-0">
+                            (Placeholder) O Ritmo Íntimo é para todas as mulheres que desejam melhorar a saúde íntima, aumentar o prazer, prevenir incontinência urinária, e se reconectar com o próprio corpo, independente da idade.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Pergunta 2 (Placeholder) -->
+                <div class="bg-gray-900 rounded-lg border border-brand-purple/50">
+                    <button @click="open = (open === 2 ? null : 2)" class="w-full flex justify-between items-center text-left p-6">
+                        <span class="font-bold text-xl lg:text-2xl">Preciso de algum acessório?</span>
+                        <span x-show="open !== 2" class="text-brand-pink text-3xl">+</span>
+                        <span x-show="open === 2" x-cloak class="text-brand-pink text-3xl">-</span>
+                    </button>
+                    <div x-show="open === 2" x-collapse x-cloak>
+                        <p class="font-serif text-lg text-gray-300 p-6 pt-0">
+                            (Placeholder) Não! O método foi desenvolvido para ser feito sem a necessidade de nenhum acessório. Você usará apenas a força e a consciência da sua própria musculatura.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Pergunta 3 (Placeholder) -->
+                <div class="bg-gray-900 rounded-lg border border-brand-purple/50">
+                    <button @click="open = (open === 3 ? null : 3)" class="w-full flex justify-between items-center text-left p-6">
+                        <span class="font-bold text-xl lg:text-2xl">Em quanto tempo vejo resultados?</span>
+                        <span x-show="open !== 3" class="text-brand-pink text-3xl">+</span>
+                        <span x-show="open === 3" x-cloak class="text-brand-pink text-3xl">-</span>
+                    </button>
+                    <div x-show="open === 3" x-collapse x-cloak>
+                        <p class="font-serif text-lg text-gray-300 p-6 pt-0">
+                            (Placeholder) Com apenas 5 a 10 minutos de prática diária, muitas alunas relatam sentir diferenças significativas na percepção, força e prazer nas primeiras semanas.
+                        </p>
+                    </div>
+                </div>
+                
+                 <!-- Pergunta 4 (Placeholder) -->
+                <div class="bg-gray-900 rounded-lg border border-brand-purple/50">
+                    <button @click="open = (open === 4 ? null : 4)" class="w-full flex justify-between items-center text-left p-6">
+                        <span class="font-bold text-xl lg:text-2xl">Como acesso o curso e o app?</span>
+                        <span x-show="open !== 4" class="text-brand-pink text-3xl">+</span>
+                        <span x-show="open === 4" x-cloak class="text-brand-pink text-3xl">-</span>
+                    </button>
+                    <div x-show="open === 4" x-collapse x-cloak>
+                        <p class="font-serif text-lg text-gray-300 p-6 pt-0">
+                            (Placeholder) Assim que seu pagamento for confirmado, você receberá um e-mail com todas as instruções para acessar a plataforma do curso e baixar o aplicativo exclusivo.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <a href="#link-checkout" class="cta-button block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-12 max-w-3xl mx-auto text-center">
+                [QUERO GARANTIR MINHA VAGA AGORA]
+            </a>
+        </div>
+    </section>
+
+    <!-- Seção: Sobre Mim -->
+    <section class="py-16 lg:py-24 bg-black px-6">
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div class="w-full lg:w-1/2">
+                <img src="https://placehold.co/600x700/333/888?text=Foto+da+Camila" alt="Foto da Camila" class="rounded-lg shadow-2xl w-full">
+            </div>
+            <div class="w-full lg:w-1/2">
+                <h2 class="font-bold text-4xl lg:text-5xl text-gradient">
+                    Quem é Camila Gutz
+                </h2>
+                <p class="font-bold text-2xl lg:text-3xl text-white mt-4">
+                    Uma fisioterapeuta que já viveu muitos desses desconfortos na pele
+                </p>
+                <p class="font-serif text-lg lg:text-xl text-gray-300 mt-8 space-y-5">
+                    Hoje, após milhares de vidas transformadas através da fisioterapia pélvica, ampliei minha abordagem e criei o Ritmo Íntimo, um método de neopompoarismo pensado para atender não apenas as questões íntimas, mas também trazer soluções práticas para mulheres que buscam recuperar o controle sobre os seus corpos, superar desafios como escapes de urina, desconfortos pós-parto e resgatar a conexão consigo mesmas.
+                    <br><br>
+                    Minha missão é acolher e transformar a maneira como você se sente e se relaciona com sua intimidade, ajudando você a viver uma vida extraordinária com mais saúde, confiança e prazer - dentro e fora do quarto.
+                </p>
+                <a href="#link-checkout" class="cta-button inline-block text-white font-bold text-xl lg:text-2xl uppercase rounded-lg px-12 py-5 mt-10 w-full lg:w-auto">
+                    [RETOMAR O CONTROLE DO MEU CORPO AGORA]
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-brand-dark text-center">
+        <p class="font-serif text-gray-400">© 2024 Camila Gutz. Todos os direitos reservados.</p>
+        <!-- Adicione links para política de privacidade, etc., se necessário -->
+    </footer>
+
+</body>
+</html>
