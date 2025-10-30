@@ -774,25 +774,32 @@
         <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16"> 
             <!-- Coluna da Imagem -->
              <div class="w-full lg:w-1/2">
-                 <img src="img/reflexive.webp" alt="Mulher pensando" class="rounded-lg shadow-2xl w-full">
+                 <img src="img/reflexive.webp" alt="Mulher pensando" class="rounded-lg shadow-2xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x600/333/888?text=Erro+Img+Reflexiva';">
             </div>
             <!-- Coluna do Texto -->
-            <div class="w-full lg:w-1/2 text-center lg:text-left">
-                 <h2 class="font-bold text-2xl lg:text-2xl text-brand-text-light"> 
+             <!-- [ALTERAÇÃO] Alinhamento mobile agora é 'text-left' -->
+            <div class="w-full lg:w-1/2 text-left">
+                 <h2 class="font-bold text-2xl text-brand-text-light"> 
                     CADA DIA QUE PASSA É UM DIA A MENOS VIVENDO A VIDA QUE VOCÊ MERECE. QUANTAS VEZES VOCÊ JÁ:
                 </h2>
-                 <div class="space-y-3 text-xl lg:text-1xl font-serif text-gray-300 mt-8 max-w-lg mx-auto lg:mx-0 text-left"> 
+                 <div class="space-y-3 text-xl lg:text-lg font-serif text-gray-300 mt-8 max-w-lg mx-auto lg:mx-0 text-left"> 
                     <p>❌ Evitou usar aquela roupa por medo de escape?</p>
                     <p>❌ Deixou de fazer certas posições por vergonha?</p>
                     <p>❌ Fingiu estar cansada porque simplesmente não sentia prazer?</p>
                 </div>
-                <p class="font-serif text-lg lg:text-xl mt-8 text-brand-text-light"> 
+                 <!-- [ALTERAÇÃO] Tamanho da fonte mobile (text-2xl) igual ao título acima -->
+                <p class="font-serif text-2xl lg:text-xl mt-8 text-brand-text-light"> 
                     Cada dia que você adia é mais um dia convivendo com esses desconfortos.
                 </p>
             </div>
         </div>
-        <div class="max-w-4xl mx-auto text-center mt-12"> 
-            <h3 class="font-bold text-3xl lg:text-4xl text-brand-primary"> 
+
+         <!-- [ALTERAÇÃO] Adicionado separador e espaçamento superior (lg:mt-20) para desktop -->
+        <div class="max-w-4xl mx-auto text-center mt-12 lg:mt-20"> 
+            <hr class="border-gray-700/50 my-12 block"> <!-- [ALTERAÇÃO] Linha agora visível em todos os tamanhos -->
+
+             <!-- [ALTERAÇÃO] Cor do título alterada para branco (text-brand-text-light) -->
+            <h3 class="font-bold text-3xl lg:text-4xl text-brand-text-light"> 
                 DAQUI A 1 ANO, VOCÊ QUER ESTAR:
             </h3>
             
@@ -819,7 +826,7 @@
                 A escolha é sua. Mas essa condição especial só existe AGORA e não se repetirá.
             </p>
             <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
-                 <span class="responsive-button-text">QUERO COMEÇAR A VIVER A VIDA QUE EU MEREÇO</span>
+                 <span class="responsive-button-text">QUERO VIVER A VIDA QUE EU MEREÇO</span>
             </a>
         </div>
     </section>
@@ -900,7 +907,7 @@
             </div>
             
             <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
-                 <span class="responsive-button-text">QUERO COMEÇAR MINHA TRANSFORMAÇÃO AGORA</span>
+                 <span class="responsive-button-text">QUERO COMEÇAR MINHA TRANSFORMAÇÃO</span>
             </a>
         </div>
     </section>
@@ -932,7 +939,7 @@
 
     <section class="py-12 lg:py-20 bg-brand-dark px-6" x-data="{ open: null }"> 
         <div class="max-w-4xl mx-auto">
-             <!-- [ALTERAÇÃO] Título do FAQ branco e centralizado -->
+             <!-- [ALTERAÇÃO] Título do FAQ alterado para branco e centralizado -->
              <h2 class="font-bold text-3xl lg:text-4xl text-center text-brand-text-light"> 
                 Perguntas Frequentes
             </h2>
@@ -1097,6 +1104,9 @@
 
 </body>
 </html>
+
+
+
 
 
 
