@@ -373,7 +373,7 @@
     position: relative;
     color: white;
     overflow: hidden;
-    background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.37) 0%, rgba(0, 0, 0, 0.932) 100%, rgba(0, 0, 0, 0.671) 20%), url(img/background.webp);
+    background-image:linear-gradient(to bottom, rgb(0 0 0 / 74%) 0%, rgba(0, 0, 0, 0.932) 100%, rgba(0, 0, 0, 0.671) 20%), url(img/background-2.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center 20%;
@@ -597,24 +597,37 @@
         </div>
     </div>
 
-    <!-- Added spotlight-section class -->
-    <section class="py-12 lg:py-20 bg-black px-6 text-center spotlight-section"> 
-        <div class="max-w-3xl mx-auto">
-            <h2 class="font-black text-3xl lg:text-4xl text-brand-primary uppercase"> 
-                MAS ATENÇÃO:
-            </h2>
-            <h3 class="font-bold text-2xl lg:text-3xl mt-3 text-brand-text-light"> 
-                 ESSA CONDIÇÃO SÓ EXISTE AGORA
-            </h3>
-            <p class="font-serif text-lg lg:text-xl mt-6 text-gray-300"> 
-                Na Black Íntimas, você leva o combo exclusivo   por <span class="font-bold text-brand-text-light">R$397,00</span> (menos de R$ 1,09 por dia) 
-            </p>
-            <p class="font-serif text-base lg:text-lg mt-3 text-gray-300"> 
-                É bem menos do que um cafézinho e pode te livrar de precisar fazer uma cirurgia íntima no futuro.
-            </p>
-            <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
-                 <span class="responsive-button-text">QUERO APROVEITAR A BLACK AGORA</span>
-            </a>
+    <!-- [ALTERAÇÃO] Seção "MAS ATENÇÃO" redesenhada com 2 colunas e ícone -->
+    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section"> 
+        <div class="max-w-5xl mx-auto bg-gray-900 rounded-2xl shadow-2xl border border-brand-primary/50 overflow-hidden">
+            <div class="flex flex-col lg:flex-row items-center">
+                
+                <!-- Coluna do Ícone -->
+                <div class="w-full lg:w-1/3 p-8 lg:p-12 flex justify-center text-brand-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 lg:h-48 lg:w-48 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.33 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                
+                <!-- Coluna do Texto -->
+                <div class="w-full lg:w-2/3 p-8 lg:p-12 text-center lg:text-left">
+                    <h2 class="font-black text-3xl lg:text-4xl text-brand-primary uppercase"> 
+                        MAS ATENÇÃO:
+                    </h2>
+                    <h3 class="font-bold text-2xl lg:text-3xl mt-3 text-brand-text-light"> 
+                         ESSA CONDIÇÃO SÓ EXISTE AGORA
+                    </h3>
+                    <p class="font-serif text-lg lg:text-xl mt-6 text-gray-300"> 
+                        Na Black Íntimas, você leva o combo exclusivo   por <span class="font-bold text-brand-text-light">R$397,00</span> (menos de R$ 1,09 por dia) 
+                    </p>
+                    <p class="font-serif text-base lg:text-lg mt-3 text-gray-300"> 
+                        É bem menos do que um cafézinho e pode te livrar de precisar fazer uma cirurgia íntima no futuro.
+                    </p>
+                    <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
+                         <span class="responsive-button-text">QUERO APROVEITAR A BLACK</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -631,44 +644,65 @@
                 E se você pudesse:
             </h3>
             
-            <div class="columns-1 md:columns-2 gap-x-8 mt-8 space-y-4"> 
-                <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> 
-                    <p class="font-serif text-base text-gray-300">Eliminar e prevenir aqueles <span class="font-semibold text-brand-text-light">escapes de xixi</span> constrangedores, e nunca mais ter que planejar sua vida em torno de um banheiro</p> 
+            <!-- [INÍCIO DA ALTERAÇÃO] Ícones maiores (h-20 w-20) e fonte menor (text-sm) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12">
+                
+                <!-- Card 1: Escapes de xixi -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-1.png" alt="Ícone Escapes de Xixi" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Eliminar e prevenir aqueles <span class="font-semibold text-brand-text-light">escapes de xixi</span> constrangedores, e nunca mais ter que planejar sua vida em torno de um banheiro</p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                   <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Acabar de vez com os <span class="font-semibold text-brand-text-light">puns na prikita</span> que roubam sua espontaneidade e te fazem evitar certas posições (você sabe do que eu tô falando!)</p> 
+
+                <!-- Card 2: Puns na prikita -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-2.png" alt="Ícone Puns na Prikita" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Acabar de vez com os <span class="font-semibold text-brand-text-light">puns na prikita</span> que roubam sua espontaneidade e te fazem evitar certas posições (você sabe do que eu tô falando!)</p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Deixar ela <span class="font-semibold text-brand-text-light">mais apertadinha e sensível</span>, rediscobrindo (ou descobrindo pela primeira vez!) sensações incríveis que você achava impossíveis</p> 
+
+                <!-- Card 3: Apertadinha -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-10.png" alt="Ícone Mais Apertadinha" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Deixar ela <span class="font-semibold text-brand-text-light">mais apertadinha e sensível</span>, rediscobrindo (ou descobrindo pela primeira vez!) sensações incríveis que você achava impossíveis</p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Prevenir <span class="font-semibold text-brand-text-light">queda de bexiga e útero</span>, cuidando da sua saúde íntima agora para evitar problemas sérios ou necessidade de cirurgias no futuro (que custam CARO)</p> 
+
+                <!-- Card 4: Queda de bexiga -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-7.png" alt="Ícone Queda de Bexiga" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Prevenir <span class="font-semibold text-brand-text-light">queda de bexiga e útero</span>, cuidando da sua saúde íntima agora para evitar problemas sérios ou necessidade de cirurgias no futuro (que custam CARO)</p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Se preparar da melhor forma para <span class="font-semibold text-brand-text-light">gestação e pós-parto</span>, ajudando a prevenir e recuperar possíveis lacerações e outros problemas recorrentes </p> 
+
+                <!-- Card 5: Gestação -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-5.png" alt="Ícone Gestação e Pós-parto" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Se preparar da melhor forma para <span class="font-semibold text-brand-text-light">gestação e pós-parto</span>, ajudando a prevenir e recuperar possíveis lacerações e outros problemas recorrentes </p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Aumentar sua <span class="font-semibold text-brand-text-light">autoestima, autoconfiança e libido</span>, o que vai te fazer sentir mais poderosa, desejável, goxxxxtosa e completamente dona do seu prazer</p> 
+
+                <!-- Card 6: Autoestima -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-3.png" alt="Ícone Autoestima e Libido" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Aumentar sua <span class="font-semibold text-brand-text-light">autoestima, autoconfiança e libido</span>, o que vai te fazer sentir mais poderosa, desejável, goxxxxtosa e completamente dona do seu prazer</p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Aumentar MUITO o <span class="font-semibold text-brand-text-light">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.   </p> 
+
+                <!-- Card 7: Prazer e lubrificação -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-4.png" alt="Ícone Prazer e Lubrificação" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Aumentar MUITO o <span class="font-semibold text-brand-text-light">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.   </p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                   <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Se soltar <span class="font-semibold text-brand-text-light">DE VERDADE na cama</span>  sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p> 
+
+                <!-- Card 8: Soltar na cama -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-8.png" alt="Ícone Se Soltar na Cama" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Se soltar <span class="font-semibold text-brand-text-light">DE VERDADE na cama</span>  sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p> <!-- Reduzido para text-sm -->
                 </div>
-                 <div class="flex items-start space-x-3 p-4 bg-gray-900/50 rounded-lg break-inside-avoid">
-                    <svg class="w-5 h-5 text-brand-accent flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                    <p class="font-serif text-base text-gray-300">Ter <span class="font-semibold text-brand-text-light">orgasmos intensos e profundos</span>, aqueles que fazem seu corpo inteiro vibrar, tremer e te deixam com aquele sorriso bobo no rosto por horas</p> 
+
+                <!-- Card 9: Orgasmos -->
+                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-9.png" alt="Ícone Orgasmos Intensos" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
+                    <p class="font-serif text-sm text-gray-300">Ter <span class="font-semibold text-brand-text-light">orgasmos intensos e profundos</span>, aqueles que fazem seu corpo inteiro vibrar, tremer e te deixam com aquele sorriso bobo no rosto por horas</p> <!-- Reduzido para text-sm -->
                 </div>
+
             </div>
+            <!-- [FIM DA ALTERAÇÃO] -->
             
             <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">EU QUERO CUIDAR DA MINHA SAÚDE</span>
@@ -761,14 +795,26 @@
             <h3 class="font-bold text-3xl lg:text-4xl text-brand-primary"> 
                 DAQUI A 1 ANO, VOCÊ QUER ESTAR:
             </h3>
+            
+            <!-- [ALTERAÇÃO] Cards de "Escolha" redesenhados para maior clareza e limpeza -->
             <div class="flex flex-col lg:flex-row gap-6 mt-8"> 
-                <div class="w-full lg:w-1/2 bg-gray-900 p-6 rounded-lg border-2 border-red-700 text-left opacity-70"> 
-                    <p class="font-serif text-xl text-red-400">AINDA evitando roupas, fingindo prazer e se sentindo insegura?</p> 
+                <!-- Card Negativo -->
+                <div class="w-full lg:w-1/2 bg-gray-900 p-6 rounded-lg border border-gray-700 text-left flex items-start space-x-4"> 
+                    <svg class="w-8 h-8 text-red-500 flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <p class="font-serif text-lg text-gray-400">AINDA evitando roupas, fingindo prazer e se sentindo insegura?</p> 
                 </div>
-                <div class="w-full lg:w-1/2 bg-gray-800 p-6 rounded-lg border-2 border-brand-accent shadow-lg shadow-brand-accent/30 text-left"> 
-                    <p class="font-serif text-xl text-brand-accent">OU no controle total do seu corpo, sentindo orgasmos intensos e radiante de confiança?</p> 
+                <!-- Card Positivo -->
+                <div class="w-full lg:w-1/2 bg-gray-800 p-6 rounded-lg border-2 border-brand-accent shadow-lg shadow-brand-accent/30 text-left flex items-start space-x-4"> 
+                    <svg class="w-8 h-8 text-brand-accent flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <p class="font-serif text-lg text-brand-accent font-semibold">OU no controle total do seu corpo, sentindo orgasmos intensos e radiante de confiança?</p> 
                 </div>
             </div>
+            <!-- Fim da [ALTERAÇÃO] -->
+
              <p class="font-bold text-xl lg:text-2xl mt-8 text-brand-text-light"> 
                 A escolha é sua. Mas essa condição especial só existe AGORA e não se repetirá.
             </p>
@@ -886,14 +932,16 @@
 
     <section class="py-12 lg:py-20 bg-brand-dark px-6" x-data="{ open: null }"> 
         <div class="max-w-4xl mx-auto">
+             <!-- [ALTERAÇÃO] Título do FAQ branco e centralizado -->
              <h2 class="font-bold text-3xl lg:text-4xl text-center text-brand-text-light"> 
                 Perguntas Frequentes
             </h2>
             
             <div class="space-y-4 mt-10"> 
+                <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                 <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 1 ? null : 1)" class="w-full flex justify-between items-center text-left p-5"> 
-                        <span class="font-bold text-lg lg:text-xl text-brand-text-light">Para quem é o Ritmo Íntimo?</span> 
+                        <span class="font-bold text-lg lg:text-xl text-brand-accent">Para quem é o Ritmo Íntimo?</span> 
                         <span x-show="open !== 1" class="text-brand-primary text-2xl">+</span>
                         <span x-show="open === 1" x-cloak class="text-brand-primary text-2xl">-</span>
                     </button>
@@ -904,9 +952,10 @@
                     </div>
                 </div>
                 
+                <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                 <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 2 ? null : 2)" class="w-full flex justify-between items-center text-left p-5">
-                        <span class="font-bold text-lg lg:text-xl text-brand-text-light">Preciso de algum acessório?</span>
+                        <span class="font-bold text-lg lg:text-xl text-brand-accent">Preciso de algum acessório?</span>
                         <span x-show="open !== 2" class="text-brand-primary text-2xl">+</span>
                         <span x-show="open === 2" x-cloak class="text-brand-primary text-2xl">-</span>
                     </button>
@@ -917,9 +966,10 @@
                     </div>
                 </div>
                 
+                <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                 <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 3 ? null : 3)" class="w-full flex justify-between items-center text-left p-5">
-                        <span class="font-bold text-lg lg:text-xl text-brand-text-light">Em quanto tempo vejo resultados?</span>
+                        <span class="font-bold text-lg lg:text-xl text-brand-accent">Em quanto tempo vejo resultados?</span>
                         <span x-show="open !== 3" class="text-brand-primary text-2xl">+</span>
                         <span x-show="open === 3" x-cloak class="text-brand-primary text-2xl">-</span>
                     </button>
@@ -930,9 +980,10 @@
                     </div>
                 </div>
                 
+                 <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                  <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 4 ? null : 4)" class="w-full flex justify-between items-center text-left p-5">
-                        <span class="font-bold text-lg lg:text-xl text-brand-text-light">Como acesso o curso e o app?</span>
+                        <span class="font-bold text-lg lg:text-xl text-brand-accent">Como acesso o curso e o app?</span>
                         <span x-show="open !== 4" class="text-brand-primary text-2xl">+</span>
                         <span x-show="open === 4" x-cloak class="text-brand-primary text-2xl">-</span>
                     </button>
@@ -1046,4 +1097,9 @@
 
 </body>
 </html>
+
+
+
+
+
 
