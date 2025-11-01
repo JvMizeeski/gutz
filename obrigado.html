@@ -23,7 +23,7 @@
         body {
             cursor: auto;
             position: relative; 
-            overflow-x: hidden; 
+            overflow-x: hidden; /* Mantido para garantir que não haja scroll acidental */
         }
 
         /* Cores e Estilos reutilizados da Landing Page */
@@ -44,12 +44,12 @@
             background-color: rgb(var(--brand-primary-rgb)); 
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.7); 
-            white-space: nowrap;
+            /* REMOVIDO: white-space: nowrap; */ 
             display: inline-flex; 
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 1rem 3rem; 
+            /* Padding base removido aqui, será aplicado inline para responsividade */
         }
         .cta-button:hover {
             transform: scale(1.03);
@@ -59,7 +59,7 @@
             font-size: clamp(0.9rem, 3vw, 1.25rem); 
             font-weight: 800; 
             text-transform: uppercase; 
-            white-space: nowrap;
+            /* REMOVIDO: white-space: nowrap; */ 
             display: block;
         }
         /* Estilo para o ícone piscante de atenção */
@@ -182,7 +182,7 @@
                 
                 <div class="my-8 w-full h-auto bg-gray-700 aspect-[16/5] flex items-center justify-center p-8 rounded-lg">
                     <span class="text-gray-400 font-serif text-sm">
-                        <img src="img/disclaimer.png" alt="Pesquisa do google feita para alertar">
+                        [Placeholder para Imagem Horizontal da Pesquisa do Google]
                     </span>
                 </div>
                 
@@ -225,7 +225,7 @@
                     <p class="font-black text-5xl text-brand-text-light mb-6">
                         <span class="text-brand-accent">12X de R$ 39,62</span>
                     </p>
-                    <a href="#" class="cta-button inline-block text-white uppercase rounded-lg">
+                    <a href="#" class="cta-button py-4 px-8 inline-block text-white uppercase rounded-lg w-full sm:w-auto">
                         <span class="responsive-button-text">QUERO APROVEITAR A PROMOÇÃO AGORA</span>
                     </a>
                 </div>
