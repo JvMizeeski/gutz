@@ -14,14 +14,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
-    <!-- Alpine.js - Defer loading -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     
     <style>
         :root {
             --font-urbanist: 'Urbanist', sans-serif;
             --font-nobile: 'Nobile', sans-serif;
-            /* Updated Primary Color RGB */
+            /* Updated Primary Color RGB (255, 2, 22) */
             --brand-primary-rgb: 255, 2, 22; 
         }
         
@@ -155,8 +154,8 @@
             margin-top: -20px;
         }
          .swiper-button-next {
-            right: 10px;
-        }
+             right: 10px;
+         }
         .swiper-button-prev {
             left: 10px;
         }
@@ -295,6 +294,91 @@
             pointer-events: none; 
         }
 
+        /* NOVO AJUSTE DO BACKGROUND DO HERO (INÍCIO) */
+        /* Ajuste para o background do Hero em telas pequenas (Mobile) */
+        @media (max-width: 639px) { /* Corresponde ao Mobile (antes do 'sm') */
+            .hero-background {
+                background-image: linear-gradient(to bottom, rgb(0 0 0 / 74%) 0%, rgba(0, 0, 0, 0.932) 100%, rgba(0, 0, 0, 0.671) 20%), url(img/background-mobile.webp) !important;
+                /* Posiciona a imagem no topo para a Camila ficar visível */
+                background-position: center top !important; 
+                /* Aumenta o padding superior e diminui o inferior para empurrar o conteúdo para baixo */
+                padding-top: 15rem !important; /* Aumenta o espaço acima do conteúdo */
+                padding-bottom: 2rem !important; /* Diminui o espaço abaixo do conteúdo */
+            }
+        }
+        /* NOVO AJUSTE DO BACKGROUND DO HERO (FIM) */
+
+        /* [ALTERAÇÃO SOLICITADA] Cursor piscando do efeito de digitação */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em; /* Ajuste para a altura da linha */
+            background-color: white; /* Cor do cursor */
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* [ALTERAÇÃO SOLICITADA] Animação de Entrada (Fade In no Scroll) */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* [ALTERAÇÃO SOLICITADA] Efeito Swing/Balanço para as Imagens */
+        @keyframes swing {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(0.5deg) scale(1.01); } /* Balanço suave para a direita/cima */
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        .img-swing {
+            animation: swing 6s ease-in-out infinite alternate;
+            transition: transform 0.6s ease;
+        }
+
+        /* [ALTERAÇÃO SOLICITADA] Piscar mais forte para o ícone de Atenção */
+        .stronger-pulse {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; } /* Reduz a opacidade para um efeito de piscar mais forte */
+        }
+
+        /* [NOVA ALTERAÇÃO SOLICITADA] Glow Vermelho nos Títulos do Combo */
+        @keyframes red-glow-movement {
+            0% { box-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.5), 0 0 15px rgba(var(--brand-primary-rgb), 0.3) inset; }
+            50% { box-shadow: 0 0 15px rgba(var(--brand-primary-rgb), 0.8), 0 0 20px rgba(var(--brand-primary-rgb), 0.5) inset; }
+            100% { box-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.5), 0 0 15px rgba(var(--brand-primary-rgb), 0.3) inset; }
+        }
+        /* [REMOVIDO] - Substituído por .golden-shine-text */
+        /* .red-glow-pulse {
+            position: relative;
+            z-index: 10;
+            animation: red-glow-movement 4s ease-in-out infinite;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        } */
+
+        /* [NOVA ALTERAÇÃO SOLICITADA] Títulos dourados e brilhando */
+        .golden-shine-text {
+             color: #FFD700; /* Cor dourada */
+             text-shadow: 0 0 8px #FFD700, 0 0 15px rgba(255, 215, 0, 0.5);
+             transition: text-shadow 0.3s ease;
+        }
+        
+        /* [NOVA ALTERAÇÃO SOLICITADA] Glow Vermelho nas Imagens (combina com o swing) */
+        .red-glow-img {
+            box-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.5);
+            animation: red-glow-movement 4s ease-in-out infinite, swing 6s ease-in-out infinite alternate;
+        }
     </style>
     
     <script>
@@ -324,9 +408,12 @@
         }
     </script>
 </head>
-<body class="bg-black text-brand-text-light font-sans" x-data="{ lightboxOpen: false, lightboxImage: '' }">
+<body class="bg-black text-brand-text-light font-sans" x-data="{ 
+    lightboxOpen: false, 
+    lightboxImage: '',
+    heroTyping: { text: 'INSCRIÇÕES ABERTAS', current: '', isTyping: true, showCursor: true }
+}">
 
-    <!-- Lightbox Modal -->
     <div x-show="lightboxOpen" 
          x-transition:enter="transition ease-out duration-300" 
          x-transition:enter-start="opacity-0" 
@@ -356,8 +443,7 @@
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
-             <!-- Cópia -->
-            <span>oferta limitada</span>
+             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
@@ -368,28 +454,34 @@
         </div>
     </div>
 
-    <!-- Added spotlight-section class -->
-    <header class="bg-black py-16 lg:py-20 px-6 text-center overflow-hidden spotlight-section" style="
-    position: relative;
-    color: white;
-    overflow: hidden;
-    background-image:linear-gradient(to bottom, rgb(0 0 0 / 74%) 0%, rgba(0, 0, 0, 0.932) 100%, rgba(0, 0, 0, 0.671) 20%), url(img/background-desktop.webp);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 20%;
-  "> 
-         <h1 class="font-black text-6xl md:text-7xl lg:text-9xl text-gradient tracking-tighter mt-8"> 
+    <header class="bg-black py-16 lg:py-20 px-6 text-center overflow-hidden spotlight-section hero-background" style="
+        position: relative;
+        color: white;
+        overflow: hidden;
+        /* Padrão DESKTOP (telas grandes) */
+        background-image:linear-gradient(to bottom, rgb(0 0 0 / 74%) 0%, rgba(0, 0, 0, 0.932) 100%, rgba(0, 0, 0, 0.671) 20%), url(img/background-desktop.webp);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center 20%;
+        /* Ajuste para telas de NOTEBOOK (lg: - 1024px e superior, até 1535px) */
+        @media (min-width: 1024px) and (max-width: 1535px) {
+            background-image:linear-gradient(to bottom, rgb(0 0 0 / 74%) 0%, rgba(0, 0, 0, 0.932) 100%, rgba(0, 0, 0, 0.671) 20%), url(img/background-notebook.webp);
+            background-position: center 40%; /* Ajuste a posição, se necessário, para a imagem de notebook */
+        }
+        /* O estilo para MOBILE (max-width: 639px) será aplicado via classe .hero-background no <style> */
+    "> 
+        <h1 class="font-black text-6xl md:text-7xl lg:text-9xl text-gradient tracking-tighter mt-8"> 
             BLACK ÍNTIMAS
         </h1>
         
-        <div class="inline-block mt-6">
-             <h2 class="border-2 border-brand-primary text-brand-primary font-bold text-xl md:text-2xl lg:text-3xl tracking-widest uppercase px-6 py-2 rounded-lg shadow-md"> 
-                INSCRIÇÕES ABERTAS
+        <div class="inline-block mt-6" x-init="startHeroTyping(heroTyping)">
+             <h2 class="border-2 border-brand-accent text-brand-accent font-bold text-xl md:text-2xl lg:text-3xl tracking-widest uppercase px-6 py-2 rounded-lg shadow-md shadow-brand-accent/30"> 
+                 <span x-text="heroTyping.current"></span><span class="typing-cursor" x-show="heroTyping.showCursor"></span>
             </h2>
         </div>
         
         <p class="font-bold text-lg md:text-xl lg:text-2xl mt-8 max-w-3xl mx-auto"> 
-            COMBO EXCLUSIVO COM ATÉ <span class="text-brand-primary">90% DE DESCONTO</span> 
+            COMBO EXCLUSIVO COM ATÉ <span class="text-brand-accent">90% DE DESCONTO</span> 
         </p>
         
         <p class="font-serif text-base md:text-lg lg:text-xl mt-4 max-w-2xl mx-auto text-gray-300"> 
@@ -401,17 +493,16 @@
         </a>
     </header>
 
-    <section class="py-12 lg:py-20 bg-black px-6"> 
+    <section class="py-12 lg:py-20 bg-black px-6 fade-in-section"> 
         <div class="max-w-6xl mx-auto">
-            <h2 class="font-serif text-xl lg:text-2xl text-center max-w-3xl mx-auto text-brand-text-light"> 
+            <h2 class="font-serif text-xl lg:text-2xl text-center max-w-3xl mx-auto text-brand-accent"> 
                 Se o Ritmo Íntimo sozinho já causa tudo isso… <br>
-                (E não sou eu que tá dizendo 👀)
+                (E não sou quem tô dizendo 👀)
             </h2>
             
              <div class="swiper-nav-wrapper swiper-nav-1 mt-10"> 
                 <div class="swiper swiper-testimonials-1 py-4 px-14">
                     <div class="swiper-wrapper">
-                        <!-- Added @click for lightbox -->
                         <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/1.webp'; lightboxOpen = true;">
                             <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
                                 <img src="img/1.webp" alt="Depoimento 1" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+1';">
@@ -460,7 +551,6 @@
         </div>
     </section>
     
-    <!-- Marquee 2 -->
     <div class="w-full bg-brand-primary py-3 relative z-10 shadow-lg marquee">
         <div class="marquee-track text-brand-text-light text-sm lg:text-base"> 
             <span>oferta limitada</span>
@@ -471,8 +561,7 @@
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
-             <!-- Cópia -->
-            <span>oferta limitada</span>
+             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
@@ -483,35 +572,31 @@
         </div>
     </div>
     
-    <!-- Added spotlight-section class -->
-    <section class="py-12 lg:py-20 px-6 bg-black spotlight-section"> 
+    <section class="py-12 lg:py-20 px-6 bg-gray-900 spotlight-section fade-in-section"> 
         <div class="max-w-6xl mx-auto">
              <h2 class="font-bold text-3xl lg:text-4xl text-center max-w-4xl mx-auto text-brand-text-light"> 
-                Imagina o <span class="text-primary-gradient">Combo exclusivo</span> que que eu preparei especialmente para você na Black íntimas: 
+                Imagina o <span class="text-primary-gradient">Combo exclusivo</span> que eu preparei especialmente para você na Black íntimas: 
             </h2>
             
             <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mt-12"> 
                 <div class="w-full lg:w-1/2">
-                     <img src="img/mockup.webp" alt="Mockup do combo exclusivo" class="rounded-lg shadow-2xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x450/333/888?text=Erro+Mockup';"> 
+                    <img src="img/mockup.webp" alt="Mockup do combo exclusivo" class="rounded-lg shadow-2xl w-full img-swing red-glow-img" onerror="this.onerror=null;this.src='https://placehold.co/600x450/333/888?text=Erro+Mockup';"> 
                 </div>
                 
                 <div class="w-full lg:w-1/2 space-y-4"> 
-                    <div class="bg-gray-900 p-5 rounded-lg border border-brand-primary/50"> 
-                        <h3 class="font-bold text-xl text-brand-primary">RITMO ÍNTIMO</h3> 
-                        <span class="block text-brand-text-light text-base line-through opacity-70">R$ 997,00</span> <!-- Added block -->
-                        <p class="font-serif text-base text-gray-300 mt-1">Método completo de neopompoarismo + App exclusivo + exercícios guiados pra você fazer quando e onde quiser</p> 
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-primary/50"> 
+                        <h3 class="font-bold text-xl text-brand-accent golden-shine-text">RITMO ÍNTIMO</h3> 
+                        <span class="block text-brand-text-light text-base line-through opacity-70">R$ 997,00</span> <p class="font-serif text-base text-gray-300 mt-1">Método completo de neopompoarismo + App exclusivo + exercícios guiados pra você fazer quando e onde quiser</p> 
                     </div>
                     
-                    <div class="bg-gray-900 p-5 rounded-lg border border-brand-primary/50">
-                        <h3 class="font-bold text-xl text-brand-primary">COMUNIDADE ÍNTIMAS</h3> 
-                        <span class="block text-brand-text-light text-base line-through opacity-70">R$ 497,00</span> <!-- Added block -->
-                        <p class="font-serif text-base text-gray-300 mt-1">Minha nova comunidade exclusiva com alunas que estão na mesma jornada que você, onde terá acesso a conteúdos, benefícios, bônus e presentes exclusivos </p> 
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-primary/50">
+                        <h3 class="font-bold text-xl text-brand-accent golden-shine-text">COMUNIDADE ÍNTIMAS</h3> 
+                        <span class="block text-brand-text-light text-base line-through opacity-70">R$ 497,00</span> <p class="font-serif text-base text-gray-300 mt-1">Minha nova comunidade exclusiva com alunas que estão na mesma jornada que você, onde terá acesso a conteúdos, benefícios, bônus e presentes exclusivos </p> 
                     </div>
                     
-                    <div class="bg-gray-900 p-5 rounded-lg border border-brand-primary/50">
-                        <h3 class="font-bold text-xl text-brand-primary">MENTORIA AO VIVO 1X POR MÊS COMIGO, CAMILA GUTZ</h3> 
-                        <span class="block text-brand-text-light text-base line-through opacity-70">R$ 1.997,00</span> <!-- Added block -->
-                        <p class="font-serif text-base text-gray-300 mt-1">Suporte direto, tira-dúvidas e acompanhamento personalizado pra te ajudar a potencializar seus resultados </p> 
+                    <div class="bg-gray-800 p-5 rounded-lg border border-brand-primary/50">
+                        <h3 class="font-bold text-xl text-brand-accent golden-shine-text">MENTORIA AO VIVO 1X POR MÊS COMIGO, CAMILA GUTZ</h3> 
+                        <span class="block text-brand-text-light text-base line-through opacity-70">R$ 1.997,00</span> <p class="font-serif text-base text-gray-300 mt-1">Suporte direto, tira-dúvidas e acompanhamento personalizado pra te ajudar a potencializar seus resultados </p> 
                     </div>
                 </div>
             </div>
@@ -520,7 +605,7 @@
                 <p class="font-serif text-xl lg:text-2xl text-brand-text-light uppercase tracking-wider">de </p>
                 <p class="font-black text-3xl lg:text-5xl text-brand-text-light line-through opacity-80 my-1">R$3.151,00 </p> 
                 <p class="font-serif text-xl lg:text-2xl text-brand-text-light uppercase tracking-wider">por até</p>
-                <p class="font-black text-5xl lg:text-7xl text-brand-text-light my-1 price-hover">12x de R$39.03</p> 
+                <p class="font-black text-5xl lg:text-7xl text-brand-accent my-1 price-hover">12x de R$39.03</p> 
             </div>
             
             <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
@@ -529,39 +614,31 @@
         </div>
     </section>
     
-    <!-- Bonus Section - Restructured -->
-    <section class="py-12 lg:py-20 bg-brand-dark px-6"> 
+    <section class="py-12 lg:py-20 bg-brand-dark px-6 fade-in-section"> 
         <div class="max-w-6xl mx-auto">
             <h2 class="font-bold text-3xl lg:text-4xl text-center max-w-3xl mx-auto text-brand-text-light"> 
-                MAS CALMA... VOCÊ AINDA VAI GANHAR<br> <span class="text-primary-gradient">4 BÔNUS INCRÍVEIS:</span> <!-- Updated count -->
-            </h2>
+                MAS CALMA... VOCÊ AINDA VAI GANHAR<br> <span class="text-primary-gradient">4 BÔNUS INCRÍVEIS:</span> </h2>
             
-             <!-- Bonus Image - Moved Up -->
-            <div class="mt-12">
-                <img src="img/bonus.webp" alt="Mockup dos Bônus" class="rounded-lg shadow-2xl w-full max-w-4xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/333/888?text=Erro+Bonus+Mockup';"> <!-- Updated image source -->
+             <div class="mt-12">
+                <img src="img/bonus.webp" alt="Mockup dos Bônus" class="rounded-lg shadow-2xl w-full max-w-4xl mx-auto img-swing red-glow-img" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/333/888?text=Erro+Bonus+Mockup';"> 
             </div>
                 
-            <!-- Bonus Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"> 
-                <!-- Bonus 1 -->
                 <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full"> 
                     <p class="text-base font-serif text-brand-text-light"><span class="text-brand-accent font-bold">1 ANO DE ACESSO EXTRA COMPRANDO NAS PRIMEIRAS 24h</span><br><span class="line-through opacity-70 text-sm">R$997</span> <span class="font-bold text-brand-green text-sm"> > R$0</span> 🎁</p> 
                     <p class="text-sm font-serif text-gray-300 mt-1 flex-grow">12 meses extras para continuar evoluindo (valor inestimável!), totalizando 2 anos de acesso ao APP + curso</p>
                 </div>
-                 <!-- Bonus 2 -->
-                <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
+                 <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
                     <p class="text-base font-serif text-brand-text-light"><span class="text-brand-accent font-bold">MAESTRO DO PRAZER</span><br><span class="line-through opacity-70 text-sm">R$997</span> <span class="font-bold text-brand-green text-sm"> > por R$0</span> 🎁</p> 
                     <p class="text-sm font-serif text-gray-300 mt-1 flex-grow">Método completo de neopompoarismo para homens com aulas, exercícios guiados e acesso ao APP</p> 
                     <span class="bg-black border border-brand-primary text-white px-2 py-0.5 rounded text-xs inline-block mt-2 font-semibold self-start">Lançamento EXCLUSIVO PARA A BLACK</span>
                 </div>
-                 <!-- Bonus 3 -->
-                <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
+                 <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
                     <p class="text-base font-serif text-brand-text-light"><span class="text-brand-accent font-bold">CURSO DANÇA SENSUAL</span><br><span class="line-through opacity-70 text-sm">R$147</span> <span class="font-bold text-brand-green text-sm"> > por R$0</span> 🎁</p> 
                     <p class="text-sm font-serif text-gray-300 mt-1 flex-grow">Reconecte-se com sua sensualidade através do movimento</p> 
                     <span class="bg-black border border-brand-primary text-white px-2 py-0.5 rounded text-xs inline-block mt-2 font-semibold self-start">Lançamento EXCLUSIVO PARA A BLACK</span>
                 </div>
-                 <!-- Bonus 4 -->
-                <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
+                 <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
                     <p class="text-base font-serif text-brand-text-light"><span class="text-brand-accent font-bold">LIVRO DIGITAL: 101 PRELIMINARES</span><br><span class="line-through opacity-70 text-sm">R$97</span> <span class="font-bold text-brand-green text-sm"> > por R$0</span> 🎁</p> 
                     <p class="text-sm font-serif text-gray-300 mt-1 flex-grow">Ideias criativas para apimentar sua vida íntima</p> 
                     <span class="bg-black border border-brand-primary text-white px-2 py-0.5 rounded text-xs inline-block mt-2 font-semibold self-start">Lançamento EXCLUSIVO PARA A BLACK</span>
@@ -574,8 +651,7 @@
         </div>
     </section>
     
-     <!-- Marquee 3 -->
-    <div class="w-full bg-brand-primary py-3 relative z-10 shadow-lg marquee">
+     <div class="w-full bg-brand-primary py-3 relative z-10 shadow-lg marquee">
         <div class="marquee-track text-brand-text-light text-sm lg:text-base"> 
             <span>oferta limitada</span>
             <span>oferta limitada</span>
@@ -585,8 +661,7 @@
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
-             <!-- Cópia -->
-            <span>oferta limitada</span>
+             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
@@ -597,19 +672,16 @@
         </div>
     </div>
 
-    <!-- [ALTERAÇÃO] Seção "MAS ATENÇÃO" redesenhada com 2 colunas e ícone -->
-    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section"> 
+    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section fade-in-section"> 
         <div class="max-w-5xl mx-auto bg-gray-900 rounded-2xl shadow-2xl border border-brand-primary/50 overflow-hidden">
             <div class="flex flex-col lg:flex-row items-center">
                 
-                <!-- Coluna do Ícone -->
                 <div class="w-full lg:w-1/3 p-8 lg:p-12 flex justify-center text-brand-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 lg:h-48 lg:w-48 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 lg:h-48 lg:w-48 stronger-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.33 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                 </div>
                 
-                <!-- Coluna do Texto -->
                 <div class="w-full lg:w-2/3 p-8 lg:p-12 text-center lg:text-left">
                     <h2 class="font-black text-3xl lg:text-4xl text-brand-primary uppercase"> 
                         MAS ATENÇÃO:
@@ -618,7 +690,7 @@
                          ESSA CONDIÇÃO SÓ EXISTE AGORA
                     </h3>
                     <p class="font-serif text-lg lg:text-xl mt-6 text-gray-300"> 
-                        Na Black Íntimas, você leva o combo exclusivo   por <span class="font-bold text-brand-text-light">R$397,00</span> (menos de R$ 1,09 por dia) 
+                        Na Black Íntimas, você leva o combo exclusivo  por <span class="font-bold text-brand-accent">R$397,00</span> (menos de R$ 1,09 por dia) 
                     </p>
                     <p class="font-serif text-base lg:text-lg mt-3 text-gray-300"> 
                         É bem menos do que um cafézinho e pode te livrar de precisar fazer uma cirurgia íntima no futuro.
@@ -631,87 +703,74 @@
         </div>
     </section>
 
-    <section class="py-12 lg:py-20 bg-brand-dark px-6"> 
+    <section class="py-12 lg:py-20 bg-gray-900 px-6 fade-in-section"> 
         <div class="max-w-5xl mx-auto">
-              <h2 class="font-bold text-3xl lg:text-4xl text-center text-brand-text-light max-w-3xl mx-auto"> 
-                Imagine se sentir <span class="text-primary-gradient">100% confortável</span> na sua<br class="hidden md:inline"> própria pele todos os dias: 
+             <h2 class="font-bold text-3xl lg:text-4xl text-center text-brand-text-light max-w-3xl mx-auto"> 
+                Imagine se sentir <span class="text-brand-accent">100% confortável</span> na sua<br class="hidden md:inline"> própria pele todos os dias: 
             </h2>
             <p class="font-serif text-lg lg:text-xl text-center mt-3 text-gray-300"> 
-                Confiante , poderosa e pronta para sentir prazer sem culpa, medo ou vergonha…
+                Confiante, poderosa e pronta para sentir prazer sem culpa, medo ou vergonha…
             </p>
             
             <h3 class="font-bold text-2xl lg:text-3xl text-center mt-12 text-brand-text-light"> 
                 E se você pudesse:
             </h3>
             
-            <!-- [INÍCIO DA ALTERAÇÃO] Ícones maiores (h-20 w-20) e fonte menor (text-sm) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12">
                 
-                <!-- Card 1: Escapes de xixi -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-1.png" alt="Ícone Escapes de Xixi" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Eliminar e prevenir aqueles <span class="font-semibold text-brand-text-light">escapes de xixi</span> constrangedores, e nunca mais ter que planejar sua vida em torno de um banheiro</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-1.png" alt="Ícone Escapes de Xixi" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Eliminar e prevenir aqueles <span class="font-semibold text-brand-accent">escapes de xixi</span> constrangedores, e nunca mais ter que planejar sua vida em torno de um banheiro</p>
                 </div>
 
-                <!-- Card 2: Puns na prikita -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-2.png" alt="Ícone Puns na Prikita" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Acabar de vez com os <span class="font-semibold text-brand-text-light">puns na prikita</span> que roubam sua espontaneidade e te fazem evitar certas posições (você sabe do que eu tô falando!)</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-2.png" alt="Ícone Puns na Prikita" class="h-20 w-20 mb-5 object-contain"> 
+                    <p class="font-serif text-sm text-gray-300">Acabar de vez com os <span class="font-semibold text-brand-accent">puns na prikita</span> que roubam sua espontaneidade e te fazem evitar certas posições (você sabe do que eu tô falando!)</p>
                 </div>
 
-                <!-- Card 3: Apertadinha -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-10.png" alt="Ícone Mais Apertadinha" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Deixar ela <span class="font-semibold text-brand-text-light">mais apertadinha e sensível</span>, rediscobrindo (ou descobrindo pela primeira vez!) sensações incríveis que você achava impossíveis</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-10.png" alt="Ícone Mais Apertadinha" class="h-20 w-20 mb-5 object-contain"> 
+                    <p class="font-serif text-sm text-gray-300">Deixar ela <span class="font-semibold text-brand-accent">mais apertadinha e sensível</span>, rediscobrindo (ou descobrindo pela primeira vez!) sensações incríveis que você achava impossíveis</p>
                 </div>
 
-                <!-- Card 4: Queda de bexiga -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-7.png" alt="Ícone Queda de Bexiga" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Prevenir <span class="font-semibold text-brand-text-light">queda de bexiga e útero</span>, cuidando da sua saúde íntima agora para evitar problemas sérios ou necessidade de cirurgias no futuro (que custam CARO)</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-7.png" alt="Ícone Queda de Bexiga" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Prevenir <span class="font-semibold text-brand-accent">queda de bexiga e útero</span>, cuidando da sua saúde íntima agora para evitar problemas sérios ou necessidade de cirurgias no futuro (que custam CARO)</p>
                 </div>
 
-                <!-- Card 5: Gestação -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-5.png" alt="Ícone Gestação e Pós-parto" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Se preparar da melhor forma para <span class="font-semibold text-brand-text-light">gestação e pós-parto</span>, ajudando a prevenir e recuperar possíveis lacerações e outros problemas recorrentes </p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-5.png" alt="Ícone Gestação e Pós-parto" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Se preparar da melhor forma para <span class="font-semibold text-brand-accent">gestação e pós-parto</span>, ajudando a prevenir e recuperar possíveis lacerações e outros problemas recorrentes </p>
                 </div>
 
-                <!-- Card 6: Autoestima -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-3.png" alt="Ícone Autoestima e Libido" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Aumentar sua <span class="font-semibold text-brand-text-light">autoestima, autoconfiança e libido</span>, o que vai te fazer sentir mais poderosa, desejável, goxxxxtosa e completamente dona do seu prazer</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-3.png" alt="Ícone Autoestima e Libido" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Aumentar sua <span class="font-semibold text-brand-accent">autoestima, autoconfiança e libido</span>, o que vai te fazer sentir mais poderosa, desejável, goxxxxtosa e completamente dona do seu prazer</p>
                 </div>
 
-                <!-- Card 7: Prazer e lubrificação -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-4.png" alt="Ícone Prazer e Lubrificação" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Aumentar MUITO o <span class="font-semibold text-brand-text-light">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.   </p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-4.png" alt="Ícone Prazer e Lubrificação" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Aumentar MUITO o <span class="font-semibold text-brand-accent">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.  </p>
                 </div>
 
-                <!-- Card 8: Soltar na cama -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-8.png" alt="Ícone Se Soltar na Cama" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Se soltar <span class="font-semibold text-brand-text-light">DE VERDADE na cama</span>  sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-8.png" alt="Ícone Se Soltar na Cama" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Se soltar <span class="font-semibold text-brand-accent">DE VERDADE na cama</span>  sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p>
                 </div>
 
-                <!-- Card 9: Orgasmos -->
-                <div class="bg-gray-900 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
-                    <img src="img/icone-9.png" alt="Ícone Orgasmos Intensos" class="h-20 w-20 mb-5 object-contain"> <!-- Aumentado de h-16 w-16 -->
-                    <p class="font-serif text-sm text-gray-300">Ter <span class="font-semibold text-brand-text-light">orgasmos intensos e profundos</span>, aqueles que fazem seu corpo inteiro vibrar, tremer e te deixam com aquele sorriso bobo no rosto por horas</p> <!-- Reduzido para text-sm -->
+                <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
+                    <img src="img/icone-9.png" alt="Ícone Orgasmos Intensos" class="h-20 w-20 mb-5 object-contain">
+                    <p class="font-serif text-sm text-gray-300">Ter <span class="font-semibold text-brand-accent">orgasmos intensos e profundos</span>, aqueles que fazem seu corpo inteiro vibrar, tremer e te deixam com aquele sorriso bobo no rosto por horas</p>
                 </div>
 
             </div>
-            <!-- [FIM DA ALTERAÇÃO] -->
-            
             <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">EU QUERO CUIDAR DA MINHA SAÚDE</span>
             </a>
         </div>
     </section>
 
-    <!-- Added spotlight-section class -->
-    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section"> 
+    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section fade-in-section"> 
         <div class="max-w-6xl mx-auto">
              <h2 class="font-serif text-xl lg:text-2xl text-center max-w-3xl mx-auto text-brand-text-light"> 
                 Essa foi a transformação que elas viveram, e você também pode:
@@ -720,7 +779,6 @@
              <div class="swiper-nav-wrapper swiper-nav-2 mt-10"> 
                 <div class="swiper swiper-testimonials-2 py-4 px-14">
                     <div class="swiper-wrapper">
-                         <!-- Added @click for lightbox -->
                          <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/1.webp'; lightboxOpen = true;">
                             <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
                                 <img src="img/1.webp" alt="Depoimento 1" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+1';">
@@ -746,21 +804,6 @@
                                 <img src="img/5.webp" alt="Depoimento 5" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+5';">
                             </div>
                         </div>
-                         <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/6.webp'; lightboxOpen = true;">
-                            <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
-                                <img src="img/6.webp" alt="Depoimento 6" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+6';">
-                            </div>
-                        </div>
-                         <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/7.webp'; lightboxOpen = true;">
-                            <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
-                                <img src="img/7.webp" alt="Depoimento 7" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+7';">
-                            </div>
-                        </div>
-                         <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/8.webp'; lightboxOpen = true;">
-                           <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
-                                <img src="img/8.webp" alt="Depoimento 8" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+8';">
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="swiper-button-next"></div>
@@ -769,15 +812,11 @@
         </div>
     </section>
 
-    <!-- Seção: Dor / Escolha - Layout Dividido -->
-    <section class="py-12 lg:py-20 bg-brand-dark px-6"> 
+    <section class="py-12 lg:py-20 bg-brand-dark px-6 fade-in-section"> 
         <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16"> 
-            <!-- Coluna da Imagem -->
-             <div class="w-full lg:w-1/2">
+            <div class="w-full lg:w-1/2">
                  <img src="img/reflexive.webp" alt="Mulher pensando" class="rounded-lg shadow-2xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x600/333/888?text=Erro+Img+Reflexiva';">
             </div>
-            <!-- Coluna do Texto -->
-             <!-- [ALTERAÇÃO] Alinhamento mobile agora é 'text-left' -->
             <div class="w-full lg:w-1/2 text-left">
                  <h2 class="font-bold text-2xl text-brand-text-light"> 
                     CADA DIA QUE PASSA É UM DIA A MENOS VIVENDO A VIDA QUE VOCÊ MERECE. QUANTAS VEZES VOCÊ JÁ:
@@ -787,42 +826,32 @@
                     <p>❌ Deixou de fazer certas posições por vergonha?</p>
                     <p>❌ Fingiu estar cansada porque simplesmente não sentia prazer?</p>
                 </div>
-                 <!-- [ALTERAÇÃO] Tamanho da fonte mobile (text-2xl) igual ao título acima -->
-                <p class="font-serif text-2xl lg:text-xl mt-8 text-brand-text-light"> 
+                 <p class="font-serif text-2xl lg:text-xl mt-8 text-brand-text-light"> 
                     Cada dia que você adia é mais um dia convivendo com esses desconfortos.
                 </p>
             </div>
         </div>
 
-         <!-- [ALTERAÇÃO] Adicionado separador e espaçamento superior (lg:mt-20) para desktop -->
-        <div class="max-w-4xl mx-auto text-center mt-12 lg:mt-20"> 
-            <hr class="border-gray-700/50 my-12 block"> <!-- [ALTERAÇÃO] Linha agora visível em todos os tamanhos -->
-
-             <!-- [ALTERAÇÃO] Cor do título alterada para branco (text-brand-text-light) -->
-            <h3 class="font-bold text-3xl lg:text-4xl text-brand-text-light"> 
+         <div class="max-w-4xl mx-auto text-center mt-12 lg:mt-20"> 
+            <hr class="border-gray-700/50 my-12 block"> <h3 class="font-bold text-3xl lg:text-4xl text-brand-text-light"> 
                 DAQUI A 1 ANO, VOCÊ QUER ESTAR:
             </h3>
             
-            <!-- [ALTERAÇÃO] Cards de "Escolha" redesenhados para maior clareza e limpeza -->
             <div class="flex flex-col lg:flex-row gap-6 mt-8"> 
-                <!-- Card Negativo -->
-                <div class="w-full lg:w-1/2 bg-gray-900 p-6 rounded-lg border border-gray-700 text-left flex items-start space-x-4"> 
+                <div class="w-full lg:w-1/2 bg-gray-800 p-6 rounded-lg border border-gray-700 text-left flex items-start space-x-4"> 
                     <svg class="w-8 h-8 text-red-500 flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                     <p class="font-serif text-lg text-gray-400">AINDA evitando roupas, fingindo prazer e se sentindo insegura?</p> 
                 </div>
-                <!-- Card Positivo -->
-                <div class="w-full lg:w-1/2 bg-gray-800 p-6 rounded-lg border-2 border-brand-accent shadow-lg shadow-brand-accent/30 text-left flex items-start space-x-4"> 
+                <div class="w-full lg:w-1/2 bg-gray-800 p-6 rounded-lg border-2 border-brand-accent shadow-lg shadow-brand-accent/70 text-left flex items-start space-x-4"> 
                     <svg class="w-8 h-8 text-brand-accent flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
-                    <p class="font-serif text-lg text-brand-accent font-semibold">OU no controle total do seu corpo, sentindo orgasmos intensos e radiante de confiança?</p> 
+                    <p class="font-serif text-lg text-brand-accent font-black">OU no controle total do seu corpo, sentindo orgasmos intensos e radiante de confiança?</p> 
                 </div>
             </div>
-            <!-- Fim da [ALTERAÇÃO] -->
-
-             <p class="font-bold text-xl lg:text-2xl mt-8 text-brand-text-light"> 
+            <p class="font-bold text-xl lg:text-2xl mt-8 text-brand-text-light"> 
                 A escolha é sua. Mas essa condição especial só existe AGORA e não se repetirá.
             </p>
             <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
@@ -831,11 +860,11 @@
         </div>
     </section>
 
-    <!-- Seção: Por que é Diferente - Layout Dividido -->
-     <!-- Added spotlight-section class -->
-    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section"> 
-        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16"> 
-            <!-- Coluna de Texto -->
+    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section fade-in-section"> 
+        <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+            <div class="w-full lg:w-1/2">
+                 <img src="img/camila-2.webp" alt="Camila Gutz" class="rounded-lg shadow-2xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x700/333/888?text=Erro+Camila+2';">
+            </div>
             <div class="w-full lg:w-1/2 lg:pr-8">
                  <h2 class="font-bold text-2xl md:text-3xl text-brand-text-light"> 
                     POR QUE O <span class="text-primary-gradient">RITMO ÍNTIMO</span> É DIFERENTE DE TUDO QUE VOCÊ JÁ VIU? 
@@ -862,19 +891,14 @@
                     E isso é só o começo da sua transformação.
                 </p>
             </div>
-            <!-- Coluna da Imagem -->
-            <div class="w-full lg:w-1/2">
-                 <img src="img/camila-2.webp" alt="Camila Gutz" class="rounded-lg shadow-2xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/600x700/333/888?text=Erro+Camila+2';">
-            </div>
         </div>
     </section>
 
-    <section class="py-12 lg:py-20 bg-brand-dark px-6"> 
+    <section class="py-12 lg:py-20 bg-gray-900 px-6 fade-in-section"> 
         <div class="max-w-6xl mx-auto">
              <div class="swiper-nav-wrapper swiper-nav-3 mt-10"> 
                 <div class="swiper swiper-testimonials-3 py-4 px-14">
                     <div class="swiper-wrapper">
-                        <!-- Added @click for lightbox -->
                         <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/1.webp'; lightboxOpen = true;">
                             <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
                                 <img src="img/1.webp" alt="Depoimento 1" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+1';">
@@ -912,14 +936,13 @@
         </div>
     </section>
 
-    <!-- Added spotlight-section class -->
-    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section"> 
+    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section fade-in-section"> 
         <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16"> 
             <div class="w-full lg:w-1/2">
                  <img src="img/garantia.webp" alt="Garantia de 7 Dias" class="rounded-lg shadow-2xl w-full" onerror="this.onerror=null;this.src='https://placehold.co/500x500/333/888?text=Erro+Garantia';">
             </div>
             <div class="w-full lg:w-1/2">
-                 <h2 class="font-bold text-3xl lg:text-4xl text-primary-gradient">GARANTIA DE 7 DIAS</h2> 
+                 <h2 class="font-bold text-3xl lg:text-4xl text-brand-accent">GARANTIA DE 7 DIAS</h2> 
                 <h3 class="font-bold text-2xl lg:text-3xl mt-3 text-brand-text-light">Sem Risco Pra Você!</h3> 
                  <p class="font-serif text-lg lg:text-xl text-gray-300 mt-6 leading-relaxed"> 
                     Eu acredito tanto no poder do Ritmo Íntimo que quero que você tenha total segurança pra dar esse passo.
@@ -939,13 +962,11 @@
 
     <section class="py-12 lg:py-20 bg-brand-dark px-6" x-data="{ open: null }"> 
         <div class="max-w-4xl mx-auto">
-             <!-- [ALTERAÇÃO] Título do FAQ alterado para branco e centralizado -->
-             <h2 class="font-bold text-3xl lg:text-4xl text-center text-brand-text-light"> 
+              <h2 class="font-bold text-3xl lg:text-4xl text-center text-brand-text-light"> 
                 Perguntas Frequentes
             </h2>
             
             <div class="space-y-4 mt-10"> 
-                <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                 <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 1 ? null : 1)" class="w-full flex justify-between items-center text-left p-5"> 
                         <span class="font-bold text-lg lg:text-xl text-brand-accent">Para quem é o Ritmo Íntimo?</span> 
@@ -959,7 +980,6 @@
                     </div>
                 </div>
                 
-                <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                 <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 2 ? null : 2)" class="w-full flex justify-between items-center text-left p-5">
                         <span class="font-bold text-lg lg:text-xl text-brand-accent">Preciso de algum acessório?</span>
@@ -973,7 +993,6 @@
                     </div>
                 </div>
                 
-                <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                 <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 3 ? null : 3)" class="w-full flex justify-between items-center text-left p-5">
                         <span class="font-bold text-lg lg:text-xl text-brand-accent">Em quanto tempo vejo resultados?</span>
@@ -987,7 +1006,6 @@
                     </div>
                 </div>
                 
-                 <!-- [ALTERAÇÃO] Cor da pergunta para 'accent' (dourado) -->
                  <div class="bg-gray-900 rounded-lg border border-brand-primary/50">
                     <button @click="open = (open === 4 ? null : 4)" class="w-full flex justify-between items-center text-left p-5">
                         <span class="font-bold text-lg lg:text-xl text-brand-accent">Como acesso o curso e o app?</span>
@@ -1009,15 +1027,14 @@
         </div>
     </section>
 
-    <!-- Added spotlight-section class -->
-    <section class="py-12 lg:py-20 bg-black px-6 spotlight-section"> 
+    <section class="py-12 lg:py-20 bg-gray-900 px-6 spotlight-section fade-in-section"> 
         <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-16"> 
             <div class="w-full lg:w-1/2 flex items-center"> 
                  <img src="img/camila-3.webp" alt="Foto da Camila" class="rounded-lg shadow-2xl w-full max-h-[500px] lg:max-h-[600px] object-cover object-center" onerror="this.onerror=null;this.src='https://placehold.co/600x700/333/888?text=Erro+Camila+3';"> 
             </div>
             <div class="w-full lg:w-1/2">
                  <h2 class="font-bold text-3xl lg:text-4xl"> 
-                    Quem é <span class="text-primary-gradient">Camila Gutz</span>
+                    Quem é <span class="text-brand-accent">Camila Gutz</span> 
                 </h2>
                 <p class="font-bold text-xl lg:text-2xl text-brand-text-light mt-3"> 
                     Uma fisioterapeuta que já viveu muitos desses desconfortos na pele
@@ -1048,7 +1065,29 @@
     </footer>
 
     <script>
-        // Swiper initialization - Corrected selectors
+        // [ALTERAÇÃO SOLICITADA] Lógica de Digitação movida para o Hero
+        function startHeroTyping(target) {
+            let i = 0;
+            const speed = 100; 
+            const fullText = target.text;
+            target.isTyping = true;
+
+            // Limpa o texto antes de começar a digitar
+            target.current = '';
+
+            const typeWriterInterval = setInterval(() => {
+                if (i < fullText.length) {
+                    target.current += fullText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeWriterInterval);
+                    target.isTyping = false;
+                    // Inicia o ciclo de blink do cursor (mantido pelo CSS)
+                }
+            }, speed);
+        }
+        
+        // Swiper initialization (mantido)
         var swiper1 = new Swiper('.swiper-testimonials-1', {
             loop: true,
             grabCursor: true,
@@ -1095,21 +1134,39 @@
             }
         });
 
-        // Initialize Alpine.js after the DOM is ready
-        document.addEventListener('alpine:init', () => {
-             // You can add Alpine.js related logic here if needed in the future
+        // [ALTERAÇÃO SOLICITADA] JavaScript para Animação de Entrada ao Rolar (Fade In)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Seleciona todas as seções que devem ter a animação de fade-in
+            const sections = document.querySelectorAll('.fade-in-section');
+            
+            // Verifica se o IntersectionObserver é suportado
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Adiciona a classe 'is-visible' quando a seção entra na viewport
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); // Para que a animação só aconteça uma vez
+                        }
+                    });
+                }, {
+                    root: null, // Observa em relação à viewport
+                    rootMargin: '0px 0px -100px 0px', // Aciona quando a seção está 100px acima do final da viewport
+                    threshold: 0.1 // Opcional: % da visibilidade para acionar
+                });
+
+                sections.forEach(section => {
+                    observer.observe(section);
+                });
+            } else {
+                // Fallback para navegadores sem suporte: mostra todas as seções
+                sections.forEach(section => {
+                    section.classList.add('is-visible');
+                });
+            }
         });
 
     </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
