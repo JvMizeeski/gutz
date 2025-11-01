@@ -124,7 +124,7 @@
             height: 20px;
             background: radial-gradient(ellipse at center, rgba(var(--brand-primary-rgb), 0.6) 0%, rgba(var(--brand-primary-rgb), 0) 70%); /* Updated neon glow color */
             filter: blur(10px);
-            z-index: -1;
+            z-index: -1; 
             opacity: 0.8;
             transition: opacity 0.3s ease;
         }
@@ -308,18 +308,34 @@
         }
         /* NOVO AJUSTE DO BACKGROUND DO HERO (FIM) */
 
-        /* [ALTERAÇÃO SOLICITADA] Cursor piscando do efeito de digitação */
+        /* [AJUSTADO] Cursor piscando do efeito de digitação */
         .typing-cursor {
             display: inline-block;
             width: 2px;
             height: 1em; /* Ajuste para a altura da linha */
-            background-color: white; /* Cor do cursor */
+            background-color: #FFD700; /* Cor do cursor - Dourado */
             margin-left: 2px;
             animation: blink 0.7s infinite;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
+        }
+
+        /* [CORREÇÃO CRÍTICA] Wrapper para estabilizar o layout do texto dinâmico */
+        .typing-wrapper {
+            /* Alterado para inline-flex para garantir que o wrapper e o texto estático fiquem na mesma linha */
+            display: inline-flex; 
+            /* Largura mínima para a palavra mais longa ("confiança") + espaço para cursor + ponto final */
+            min-width: 150px; 
+            /* Centraliza o wrapper dentro do parágrafo (que já está centralizado) */
+            justify-content: center; 
+            /* Necessário para o truque de alinhamento */
+            text-align: left;
+        }
+        /* [CORREÇÃO CRÍTICA] Permite que o texto estático do parágrafo se centre */
+        header .max-w-2xl.mx-auto {
+            text-align: center;
         }
 
         /* [ALTERAÇÃO SOLICITADA] Animação de Entrada (Fade In no Scroll) */
@@ -359,18 +375,11 @@
             50% { box-shadow: 0 0 15px rgba(var(--brand-primary-rgb), 0.8), 0 0 20px rgba(var(--brand-primary-rgb), 0.5) inset; }
             100% { box-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.5), 0 0 15px rgba(var(--brand-primary-rgb), 0.3) inset; }
         }
-        /* [REMOVIDO] - Substituído por .golden-shine-text */
-        /* .red-glow-pulse {
-            position: relative;
-            z-index: 10;
-            animation: red-glow-movement 4s ease-in-out infinite;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-        } */
 
-        /* [NOVA ALTERAÇÃO SOLICITADA] Títulos dourados e brilhando */
+        /* [AJUSTADO] Títulos dourados e brilhando */
         .golden-shine-text {
              color: #FFD700; /* Cor dourada */
-             text-shadow: 0 0 8px #FFD700, 0 0 15px rgba(255, 215, 0, 0.5);
+             text-shadow: 0 0 5px #FFD700, 0 0 10px rgba(255, 215, 0, 0.5); /* Sombra mais suave */
              transition: text-shadow 0.3s ease;
         }
         
@@ -379,6 +388,66 @@
             box-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.5);
             animation: red-glow-movement 4s ease-in-out infinite, swing 6s ease-in-out infinite alternate;
         }
+        
+        /* NOVO: Estilos para o Pop-up de Captura */
+        .checkout-popup-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100; /* Alto z-index para garantir que fique acima de tudo */
+            padding: 1rem;
+        }
+
+        .checkout-popup-content {
+            background-color: #1f1f1f;
+            border: 2px solid rgb(var(--brand-primary-rgb));
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 90vw;
+            width: 450px;
+            max-height: 90vh;
+            position: relative;
+            box-shadow: 0 0 30px rgba(var(--brand-primary-rgb), 0.5);
+            animation: red-glow-movement 4s ease-in-out infinite; /* Reutiliza o glow */
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #333;
+            border-radius: 0.5rem;
+            background-color: #000;
+            color: #F2F2F2;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgb(var(--brand-primary-rgb));
+            box-shadow: 0 0 10px rgba(var(--brand-primary-rgb), 0.5);
+        }
+
+        /* NOVO: Estilo para botão dentro do Pop-up */
+        .popup-cta-button {
+            background-color: rgb(var(--brand-primary-rgb));
+            box-shadow: 0 0 15px rgba(var(--brand-primary-rgb), 0.7);
+            transition: all 0.3s ease;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .popup-cta-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(var(--brand-primary-rgb), 1);
+        }
+
     </style>
     
     <script>
@@ -408,12 +477,120 @@
         }
     </script>
 </head>
-<body class="bg-black text-brand-text-light font-sans" x-data="{ 
-    lightboxOpen: false, 
-    lightboxImage: '',
-    heroTyping: { text: 'INSCRIÇÕES ABERTAS', current: '', isTyping: true, showCursor: true }
-}">
+<body class="bg-black text-brand-text-light font-sans" 
+      x-data="{ 
+          lightboxOpen: false, 
+          lightboxImage: '',
+          // VARIÁVEIS DO POP-UP DE CHECKOUT
+          checkoutPopupOpen: false, 
+          name: '', 
+          email: '', 
+          phone: '', 
+          hotmartUrl: 'https://pay.hotmart.com/A97688818T?off=zasereww&checkoutMode=10&bid=1762024487881', 
+          
+          // VARIÁVEIS DE DIGITAÇÃO (MANTIDAS)
+          heroTyping: { text: 'INSCRIÇÕES ABERTAS', current: 'INSCRIÇÕES ABERTAS', isTyping: false, showCursor: false },
+          callTyping: {
+              parts: ['saúde', 'prazer', 'liberdade', 'confiança'], // Palavras corrigidas
+              currentPartIndex: 0,
+              currentText: '', 
+              typing: true,
+              showCursor: true,
+          },
 
+          // FUNÇÃO DE REDIRECIONAMENTO DENTRO DO ESCOPO X-DATA (FINALMENTE CORRIGIDA)
+          redirectToHotmart: function() {
+              // 1. Validação básica
+              if (!this.name || !this.email || !this.phone) {
+                  alert('Por favor, preencha todos os campos obrigatórios (Nome, Email e WhatsApp).');
+                  return;
+              }
+
+              // 2. Extrai e sanitiza os dados
+              const name = encodeURIComponent(this.name);
+              const email = encodeURIComponent(this.email);
+              
+              // Extrai apenas os dígitos do telefone (DDD + Número)
+              const phoneDigits = this.phone.replace(/\D/g, ''); 
+              
+              let finalUrl = this.hotmartUrl;
+
+              if (phoneDigits.length >= 10) {
+                  // Quebra o telefone em DDD e Número (DDD=2, Número=Restante)
+                  const ddd = phoneDigits.substring(0, 2);
+                  const number = phoneDigits.substring(2);
+
+                  // ⚠️ CORREÇÃO FINAL BASEADA NA DOCUMENTAÇÃO FORNECIDA:
+                  // Envia nome e e-mail normalmente
+                  finalUrl += `&name=${name}`;
+                  finalUrl += `&email=${email}`;
+                  
+                  // Usa os dois parâmetros OFICIAIS para o telefone: phoneac (DDD) e phonenumber (Número)
+                  finalUrl += `&phoneac=${ddd}`;
+                  finalUrl += `&phonenumber=${number}`;
+
+              } else {
+                  // Se o telefone não for válido (menos de 10 dígitos), apenas envia nome/e-mail
+                  finalUrl += `&name=${name}`;
+                  finalUrl += `&email=${email}`;
+              }
+              
+              // Oculta o pop-up
+              this.checkoutPopupOpen = false;
+
+              // 4. Redireciona
+              window.location.href = finalUrl;
+          }
+      }"
+      x-init="
+          // Chamada para inicializar Swiper/Fade-in e Digitação
+          startCallTyping(callTyping); 
+          initSwipers(); 
+          initFadeInSections();
+      "
+>
+    <div x-show="checkoutPopupOpen" 
+         x-transition:enter="transition ease-out duration-300" 
+         x-transition:enter-start="opacity-0 scale-90" 
+         x-transition:enter-end="opacity-100 scale-100" 
+         x-transition:leave="transition ease-in duration-200" 
+         x-transition:leave-start="opacity-100 scale-100" 
+         x-transition:leave-end="opacity-0 scale-90" 
+         class="checkout-popup-overlay" 
+         @click.self="checkoutPopupOpen = false" 
+         @keydown.escape.window="checkoutPopupOpen = false"
+         x-cloak>
+        <div class="checkout-popup-content" @click.stop>
+            <button @click="checkoutPopupOpen = false" class="lightbox-close">&times;</button>
+            <h3 class="font-black text-2xl text-center text-brand-accent mb-4">
+                QUASE LÁ! 🚀
+            </h3>
+            <p class="font-serif text-base text-center text-gray-300 mb-6">
+                Preencha seus dados para acessar a oferta exclusiva:
+            </p>
+            
+            <form @submit.prevent="redirectToHotmart()" class="space-y-4">
+                <div>
+                    <input x-model="name" type="text" placeholder="Seu Nome Completo *" class="form-input" required>
+                </div>
+                <div>
+                    <input x-model="email" type="email" placeholder="Seu Melhor Email *" class="form-input" required>
+                </div>
+                <div>
+                    <input x-model="phone" x-on:input="phone = formatWhatsapp(phone)" type="tel" placeholder="WhatsApp (DDD) + Número *" class="form-input" required pattern="\([0-9]{2}\) [0-9]{5}-[0-9]{4}">
+                </div>
+                <div>
+                    <button type="submit" class="popup-cta-button text-white">
+                        CONTINUAR PARA O CHECKOUT
+                    </button>
+                </div>
+            </form>
+
+            <p class="text-xs text-center text-gray-500 mt-4">
+                Suas informações estão seguras. Serão usadas para popular o checkout e entrar em contato.
+            </p>
+        </div>
+    </div>
     <div x-show="lightboxOpen" 
          x-transition:enter="transition ease-out duration-300" 
          x-transition:enter-start="opacity-0" 
@@ -451,6 +628,7 @@
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
+            <span>oferta limitada</span>
         </div>
     </div>
 
@@ -474,23 +652,26 @@
             BLACK ÍNTIMAS
         </h1>
         
-        <div class="inline-block mt-6" x-init="startHeroTyping(heroTyping)">
+        <div class="inline-block mt-6">
              <h2 class="border-2 border-brand-accent text-brand-accent font-bold text-xl md:text-2xl lg:text-3xl tracking-widest uppercase px-6 py-2 rounded-lg shadow-md shadow-brand-accent/30"> 
-                 <span x-text="heroTyping.current"></span><span class="typing-cursor" x-show="heroTyping.showCursor"></span>
-            </h2>
+                 <span>INSCRIÇÕES ABERTAS</span>
+             </h2>
         </div>
         
         <p class="font-bold text-lg md:text-xl lg:text-2xl mt-8 max-w-3xl mx-auto"> 
             COMBO EXCLUSIVO COM ATÉ <span class="text-brand-accent">90% DE DESCONTO</span> 
         </p>
         
-        <p class="font-serif text-base md:text-lg lg:text-xl mt-4 max-w-2xl mx-auto text-gray-300"> 
-            Esta é a melhor oportunidade do ano para você finalmente transformar sua vida íntima e desfrutar de cada momento com mais saúde, prazer, liberdade e confiança.
+        <p class="font-serif text-base md:text-lg lg:text-xl mt-4 max-w-2xl mx-auto text-gray-300" x-init="startCallTyping(callTyping)"> 
+            Esta é a melhor oportunidade do ano para você finalmente transformar sua vida íntima e desfrutar de cada momento com mais 
+            <span class="font-bold text-brand-accent typing-wrapper">
+                <span x-text="callTyping.currentText"></span><span class="typing-cursor" x-show="callTyping.showCursor"></span>
+            </span>
         </p>
         
-        <a href="#link-checkout" class="cta-button first-cta-button inline-block text-white uppercase rounded-lg mt-10 w-full lg:w-auto">
+        <button @click="checkoutPopupOpen = true" class="cta-button first-cta-button inline-block text-white uppercase rounded-lg mt-10 w-full lg:w-auto">
              <span class="responsive-button-text">QUERO APROVEITAR A BLACK AGORA</span> 
-        </a>
+        </button>
     </header>
 
     <section class="py-12 lg:py-20 bg-black px-6 fade-in-section"> 
@@ -539,7 +720,7 @@
                             </div>
                         </div>
                          <div class="swiper-slide h-auto cursor-pointer" @click="lightboxImage = 'img/8.webp'; lightboxOpen = true;">
-                           <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
+                            <div class="bg-gray-800 rounded-lg p-1 text-center aspect-square flex flex-col justify-center items-center h-full">
                                 <img src="img/8.webp" alt="Depoimento 8" class="w-full h-full object-cover rounded-md" onerror="this.onerror=null;this.src='https://placehold.co/400x400/4A5568/E2E8F0?text=Erro+Img+8';">
                             </div>
                         </div>
@@ -562,6 +743,7 @@
             <span>oferta limitada</span>
             <span>oferta limitada</span>
              <span>oferta limitada</span>
+            <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
@@ -608,26 +790,22 @@
                 <p class="font-black text-5xl lg:text-7xl text-brand-accent my-1 price-hover">12x de R$39.03</p> 
             </div>
             
-            <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
+            <button @click="checkoutPopupOpen = true" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">GARANTIR MINHA VAGA COM ATÉ 90% OFF</span>
-            </a>
+            </button>
         </div>
     </section>
     
     <section class="py-12 lg:py-20 bg-brand-dark px-6 fade-in-section"> 
         <div class="max-w-6xl mx-auto">
             <h2 class="font-bold text-3xl lg:text-4xl text-center max-w-3xl mx-auto text-brand-text-light"> 
-                MAS CALMA... VOCÊ AINDA VAI GANHAR<br> <span class="text-primary-gradient">4 BÔNUS INCRÍVEIS:</span> </h2>
+                MAS CALMA... VOCÊ AINDA VAI GANHAR<br> <span class="text-primary-gradient">3 BÔNUS INCRÍVEIS:</span> </h2>
             
              <div class="mt-12">
-                <img src="img/bonus.webp" alt="Mockup dos Bônus" class="rounded-lg shadow-2xl w-full max-w-4xl mx-auto img-swing red-glow-img" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/333/888?text=Erro+Bonus+Mockup';"> 
+                <img src="img/bonus-v2.webp" alt="Mockup dos Bônus" class="rounded-lg shadow-2xl w-full max-w-4xl mx-auto img-swing red-glow-img" onerror="this.onerror=null;this.src='https://placehold.co/1000x400/333/888?text=Erro+Bonus+Mockup';"> 
             </div>
-                
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12"> 
-                <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full"> 
-                    <p class="text-base font-serif text-brand-text-light"><span class="text-brand-accent font-bold">1 ANO DE ACESSO EXTRA COMPRANDO NAS PRIMEIRAS 24h</span><br><span class="line-through opacity-70 text-sm">R$997</span> <span class="font-bold text-brand-green text-sm"> > R$0</span> 🎁</p> 
-                    <p class="text-sm font-serif text-gray-300 mt-1 flex-grow">12 meses extras para continuar evoluindo (valor inestimável!), totalizando 2 anos de acesso ao APP + curso</p>
-                </div>
+                 
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12"> 
                  <div class="bg-gray-800 p-4 rounded-lg border border-brand-accent/50 flex flex-col h-full">
                     <p class="text-base font-serif text-brand-text-light"><span class="text-brand-accent font-bold">MAESTRO DO PRAZER</span><br><span class="line-through opacity-70 text-sm">R$997</span> <span class="font-bold text-brand-green text-sm"> > por R$0</span> 🎁</p> 
                     <p class="text-sm font-serif text-gray-300 mt-1 flex-grow">Método completo de neopompoarismo para homens com aulas, exercícios guiados e acesso ao APP</p> 
@@ -645,9 +823,9 @@
                 </div>
             </div>
             
-            <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
+            <button @click="checkoutPopupOpen = true" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">QUERO TODOS OS BÔNUS AGORA</span>
-            </a>
+            </button>
         </div>
     </section>
     
@@ -662,6 +840,7 @@
             <span>oferta limitada</span>
             <span>oferta limitada</span>
              <span>oferta limitada</span>
+            <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
             <span>oferta limitada</span>
@@ -687,17 +866,17 @@
                         MAS ATENÇÃO:
                     </h2>
                     <h3 class="font-bold text-2xl lg:text-3xl mt-3 text-brand-text-light"> 
-                         ESSA CONDIÇÃO SÓ EXISTE AGORA
+                          ESSA CONDIÇÃO SÓ EXISTE AGORA
                     </h3>
                     <p class="font-serif text-lg lg:text-xl mt-6 text-gray-300"> 
-                        Na Black Íntimas, você leva o combo exclusivo  por <span class="font-bold text-brand-accent">R$397,00</span> (menos de R$ 1,09 por dia) 
+                        Na Black Íntimas, você leva o combo exclusivo por <span class="font-bold text-brand-accent">R$397,00</span> (menos de R$ 1,09 por dia) 
                     </p>
                     <p class="font-serif text-base lg:text-lg mt-3 text-gray-300"> 
                         É bem menos do que um cafézinho e pode te livrar de precisar fazer uma cirurgia íntima no futuro.
                     </p>
-                    <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
+                    <button @click="checkoutPopupOpen = true" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
                          <span class="responsive-button-text">QUERO APROVEITAR A BLACK</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -750,12 +929,12 @@
 
                 <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
                     <img src="img/icone-4.png" alt="Ícone Prazer e Lubrificação" class="h-20 w-20 mb-5 object-contain">
-                    <p class="font-serif text-sm text-gray-300">Aumentar MUITO o <span class="font-semibold text-brand-accent">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.  </p>
+                    <p class="font-serif text-sm text-gray-300">Aumentar MUITO o <span class="font-semibold text-brand-accent">prazer e a lubrificação natural</span>, sentindo cada toque de forma mais intensa, viva e deliciosa.  </p>
                 </div>
 
                 <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
                     <img src="img/icone-8.png" alt="Ícone Se Soltar na Cama" class="h-20 w-20 mb-5 object-contain">
-                    <p class="font-serif text-sm text-gray-300">Se soltar <span class="font-semibold text-brand-accent">DE VERDADE na cama</span>  sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p>
+                    <p class="font-serif text-sm text-gray-300">Se soltar <span class="font-semibold text-brand-accent">DE VERDADE na cama</span>  sem travas, sem aquela voz crítica, apenas você vivendo o momento com intensidade total</p>
                 </div>
 
                 <div class="bg-gray-800 p-6 rounded-lg flex flex-col items-center text-center border border-brand-primary/20 h-full">
@@ -764,9 +943,9 @@
                 </div>
 
             </div>
-            <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
+            <button @click="checkoutPopupOpen = true" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">EU QUERO CUIDAR DA MINHA SAÚDE</span>
-            </a>
+            </button>
         </div>
     </section>
 
@@ -809,6 +988,10 @@
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
             </div>
+            
+            <button @click="checkoutPopupOpen = true" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
+                 <span class="responsive-button-text">QUERO COMEÇAR MINHA TRANSFORMAÇÃO</span>
+            </button>
         </div>
     </section>
 
@@ -846,7 +1029,7 @@
                 </div>
                 <div class="w-full lg:w-1/2 bg-gray-800 p-6 rounded-lg border-2 border-brand-accent shadow-lg shadow-brand-accent/70 text-left flex items-start space-x-4"> 
                     <svg class="w-8 h-8 text-brand-accent flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                     <p class="font-serif text-lg text-brand-accent font-black">OU no controle total do seu corpo, sentindo orgasmos intensos e radiante de confiança?</p> 
                 </div>
@@ -854,9 +1037,9 @@
             <p class="font-bold text-xl lg:text-2xl mt-8 text-brand-text-light"> 
                 A escolha é sua. Mas essa condição especial só existe AGORA e não se repetirá.
             </p>
-            <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
+            <button @click="checkoutPopupOpen = true" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto">
                  <span class="responsive-button-text">QUERO VIVER A VIDA QUE EU MEREÇO</span>
-            </a>
+            </button>
         </div>
     </section>
 
@@ -930,9 +1113,9 @@
                 <div class="swiper-button-prev"></div>
             </div>
             
-            <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
+            <button @click="checkoutPopupOpen = true" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">QUERO COMEÇAR MINHA TRANSFORMAÇÃO</span>
-            </a>
+            </button>
         </div>
     </section>
 
@@ -1021,9 +1204,9 @@
 
             </div>
             
-            <a href="#link-checkout" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
+            <button @click="checkoutPopupOpen = true" class="cta-button block text-white uppercase rounded-lg mt-10 max-w-3xl mx-auto text-center">
                  <span class="responsive-button-text">QUERO GARANTIR MINHA VAGA AGORA</span>
-            </a>
+            </button>
         </div>
     </section>
 
@@ -1044,9 +1227,9 @@
                     <br><br>
                     Minha missão é acolher e transformar a maneira como você se sente e se relaciona com sua intimidade, ajudando você a viver uma vida extraordinária com mais saúde, confiança e prazer - dentro e fora do quarto.
                 </p>
-                <a href="#link-checkout" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto last-cta-button"> 
+                <button @click="checkoutPopupOpen = true" class="cta-button inline-block text-white uppercase rounded-lg mt-8 w-full lg:w-auto last-cta-button"> 
                      <span class="responsive-button-text">RETOMAR O CONTROLE DO MEU CORPO AGORA</span>
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -1065,107 +1248,105 @@
     </footer>
 
     <script>
-        // [ALTERAÇÃO SOLICITADA] Lógica de Digitação movida para o Hero
-        function startHeroTyping(target) {
-            let i = 0;
-            const speed = 100; 
-            const fullText = target.text;
-            target.isTyping = true;
+        // FUNÇÕES DE UTILIDADE GERAL (FORA DO ESCOPO X-DATA)
 
-            // Limpa o texto antes de começar a digitar
-            target.current = '';
+        // ✅ LÓGICA DE DIGITAÇÃO (agora robusta)
+        function startCallTyping(target) {
+            const typingSpeed = 100; // Velocidade de digitação
+            const deletingSpeed = 40; // Velocidade de apagar
+            const pauseTime = 1800; // Tempo de pausa
+            const partsWithPunctuation = target.parts.map(p => p + '.'); 
+            let currentPartIndex = 0;
+            let timer;
 
-            const typeWriterInterval = setInterval(() => {
-                if (i < fullText.length) {
-                    target.current += fullText.charAt(i);
-                    i++;
-                } else {
-                    clearInterval(typeWriterInterval);
-                    target.isTyping = false;
-                    // Inicia o ciclo de blink do cursor (mantido pelo CSS)
-                }
-            }, speed);
+            const type = () => {
+                const fullText = partsWithPunctuation[currentPartIndex];
+                let i = 0;
+                
+                timer = setInterval(() => {
+                    if (i < fullText.length) {
+                        target.currentText = fullText.substring(0, i + 1); 
+                        i++;
+                    } else {
+                        clearInterval(timer);
+                        setTimeout(erase, pauseTime);
+                    }
+                }, typingSpeed);
+            };
+
+            const erase = () => {
+                let i = target.currentText.length;
+                
+                timer = setInterval(() => {
+                    if (i > 0) {
+                        target.currentText = target.currentText.substring(0, i - 1); 
+                        i--;
+                    } else {
+                        clearInterval(timer);
+                        currentPartIndex = (currentPartIndex + 1) % partsWithPunctuation.length;
+                        setTimeout(type, 300); 
+                    }
+                }, deletingSpeed);
+            };
+
+            type();
+            
+            target.showCursor = true;
+            setInterval(() => {
+                target.showCursor = !target.showCursor;
+            }, 700);
+        }
+
+
+        // FUNÇÃO DE FORMATAÇÃO DE WHATSAPP (MANTIDO)
+        function formatWhatsapp(value) {
+            let digits = value.replace(/\D/g, ''); 
+            if (digits.length > 11) {
+                digits = digits.substring(0, 11);
+            }
+            if (digits.length > 0) {
+                digits = digits.replace(/^(\d{2})/, '($1) ');
+                digits = digits.replace(/(\d{5})(\d{1,4})$/, '$1-$2');
+            }
+            return digits;
+        }
+
+        // FUNÇÕES DE INICIALIZAÇÃO (MANTIDO)
+        function initSwipers() {
+            new Swiper('.swiper-testimonials-1', {
+                loop: true, grabCursor: true, slidesPerView: 1.5, centeredSlides: true, spaceBetween: 15,
+                navigation: { nextEl: '.swiper-nav-1 .swiper-button-next', prevEl: '.swiper-nav-1 .swiper-button-prev' },
+                breakpoints: { 768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 }, 1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 30 } }
+            });
+            new Swiper('.swiper-testimonials-2', {
+                 loop: true, grabCursor: true, slidesPerView: 1.5, centeredSlides: true, spaceBetween: 15,
+                navigation: { nextEl: '.swiper-nav-2 .swiper-button-next', prevEl: '.swiper-nav-2 .swiper-button-prev' },
+                 breakpoints: { 768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 }, 1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 30 } }
+            });
+            new Swiper('.swiper-testimonials-3', {
+                loop: true, grabCursor: true, slidesPerView: 1.5, centeredSlides: true, spaceBetween: 15,
+                navigation: { nextEl: '.swiper-nav-3 .swiper-button-next', prevEl: '.swiper-nav-3 .swiper-button-prev' },
+                 breakpoints: { 768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 }, 1024: { slidesPerView: 5, centeredSlides: false, spaceBetween: 30 } }
+            });
         }
         
-        // Swiper initialization (mantido)
-        var swiper1 = new Swiper('.swiper-testimonials-1', {
-            loop: true,
-            grabCursor: true,
-            slidesPerView: 1.5,
-            centeredSlides: true,
-            spaceBetween: 15,
-            navigation: {
-                nextEl: '.swiper-nav-1 .swiper-button-next', 
-                prevEl: '.swiper-nav-1 .swiper-button-prev', 
-            },
-            breakpoints: {
-                768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
-                1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 30 }
-            }
-        });
-        var swiper2 = new Swiper('.swiper-testimonials-2', {
-             loop: true,
-            grabCursor: true,
-            slidesPerView: 1.5,
-            centeredSlides: true,
-            spaceBetween: 15,
-            navigation: {
-                nextEl: '.swiper-nav-2 .swiper-button-next', 
-                prevEl: '.swiper-nav-2 .swiper-button-prev', 
-            },
-             breakpoints: {
-                 768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
-                1024: { slidesPerView: 4, centeredSlides: false, spaceBetween: 30 }
-            }
-        });
-        var swiper3 = new Swiper('.swiper-testimonials-3', {
-            loop: true,
-            grabCursor: true,
-            slidesPerView: 1.5,
-            centeredSlides: true,
-            spaceBetween: 15,
-            navigation: {
-                nextEl: '.swiper-nav-3 .swiper-button-next', 
-                prevEl: '.swiper-nav-3 .swiper-button-prev', 
-            },
-             breakpoints: {
-                 768: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
-                1024: { slidesPerView: 5, centeredSlides: false, spaceBetween: 30 }
-            }
-        });
-
-        // [ALTERAÇÃO SOLICITADA] JavaScript para Animação de Entrada ao Rolar (Fade In)
-        document.addEventListener('DOMContentLoaded', () => {
-            // Seleciona todas as seções que devem ter a animação de fade-in
+        function initFadeInSections() {
             const sections = document.querySelectorAll('.fade-in-section');
-            
-            // Verifica se o IntersectionObserver é suportado
             if ('IntersectionObserver' in window) {
                 const observer = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            // Adiciona a classe 'is-visible' quando a seção entra na viewport
                             entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target); // Para que a animação só aconteça uma vez
+                            observer.unobserve(entry.target);
                         }
                     });
-                }, {
-                    root: null, // Observa em relação à viewport
-                    rootMargin: '0px 0px -100px 0px', // Aciona quando a seção está 100px acima do final da viewport
-                    threshold: 0.1 // Opcional: % da visibilidade para acionar
-                });
-
-                sections.forEach(section => {
-                    observer.observe(section);
-                });
+                }, { root: null, rootMargin: '0px 0px -100px 0px', threshold: 0.1 });
+                sections.forEach(section => { observer.observe(section); });
             } else {
-                // Fallback para navegadores sem suporte: mostra todas as seções
-                sections.forEach(section => {
-                    section.classList.add('is-visible');
-                });
+                sections.forEach(section => { section.classList.add('is-visible'); });
             }
-        });
-
+        }
+        
     </script>
 
 </body>

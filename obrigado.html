@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Matrícula Quase Concluída - Black Íntimas</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Nobile:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
+    <style>
+        :root {
+            --font-urbanist: 'Urbanist', sans-serif;
+            --font-nobile: 'Nobile', sans-serif;
+            --brand-primary-rgb: 255, 2, 22; 
+        }
+        
+        body {
+            cursor: auto;
+            position: relative; 
+            overflow-x: hidden; 
+        }
+
+        /* Cores e Estilos reutilizados da Landing Page */
+        .text-brand-primary {
+            color: rgb(var(--brand-primary-rgb));
+        }
+        .text-brand-accent {
+            color: #FFD700;
+        }
+        .bg-brand-dark {
+            background-color: #121212;
+        }
+        /* Cor de texto light para simular a cor branca */
+        .text-brand-text-light {
+             color: #F2F2F2;
+        }
+        .cta-button {
+            background-color: rgb(var(--brand-primary-rgb)); 
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(var(--brand-primary-rgb), 0.7); 
+            white-space: nowrap;
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem 3rem; 
+        }
+        .cta-button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(var(--brand-primary-rgb), 1); 
+        }
+        .responsive-button-text {
+            font-size: clamp(0.9rem, 3vw, 1.25rem); 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            white-space: nowrap;
+            display: block;
+        }
+        /* Estilo para o ícone piscante de atenção */
+        .stronger-pulse {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            display: inline-block;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; } 
+        }
+        /* Estilo para a lista de benefícios */
+        .benefit-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            text-align: left;
+        }
+        .benefit-list li::before {
+            content: "✔️";
+            color: rgb(var(--brand-primary-rgb));
+            font-size: 1.1em;
+            margin-right: 0.5rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+            line-height: 1.5; /* Ajuste para o alinhamento vertical */
+        }
+        .header-section {
+            background-color: #121212; /* Cor mais escura para o topo */
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Urbanist', 'sans-serif'],
+                        serif: ['Nobile', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            'primary': 'rgb(var(--brand-primary-rgb))', 
+                            'secondary': '#400101',
+                            'base-dark': '#593F3F',
+                            'text-light': '#F2F2F2',
+                            'dark': '#121212',
+                            'black': '#000000',
+                            'green': '#00D13C',
+                            'accent': '#FFD700'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-brand-text-light font-sans" x-data="{}">
+
+    <section class="py-12 lg:py-16 px-6 text-center header-section border-b border-brand-primary"> 
+        <div class="max-w-4xl mx-auto">
+            
+            <h1 class="font-black text-5xl md:text-6xl text-brand-accent tracking-tighter mb-8">
+                Obaaaa, sua matrícula está quase concluída 🤩
+            </h1>
+            
+            <p class="font-extrabold text-2xl lg:text-3xl mt-12 text-brand-text-light">
+                Antes de você fechar a página, 2 recados importantes:
+            </p>
+            
+            <div class="bg-gray-800 p-6 rounded-lg mt-8 text-center border-2 border-brand-accent/50">
+                <h3 class="font-black text-2xl text-brand-accent uppercase mb-6 border-b border-gray-700 pb-4">
+                    Como acessar o APP Camila Gutz:
+                </h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 font-serif text-lg text-gray-300">
+                    
+                    <div class="flex flex-col items-center p-4 rounded-lg">
+                        <p class="font-bold mb-3">Se seu celular for ANDROID:</p>
+                        <a href="https://play.google.com/store/apps/details?id=br.com.entrega_digital.smbc&hl=pt_BR">
+                           <img src="img/playstore.png" alt="Baixar na Play Store" class="w-36 h-auto rounded-lg shadow-lg">
+                        </a>
+                    </div>
+
+                    <div class="flex flex-col items-center p-4 rounded-lg">
+                        <p class="font-bold mb-3">Se seu celular for IPHONE:</p>
+                        <a href="https://apps.apple.com/us/app/camila-gutz/id1672408144?l=pt-BR">
+                            <img src="img/appstore.png" alt="Baixar na App Store" class="w-36 h-auto rounded-lg shadow-lg">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <h3 class="font-black text-2xl text-brand-text-light uppercase mb-3">
+                    Seus dados de login:
+                </h3>
+                <p class="font-serif text-xl text-gray-400 max-w-2xl mx-auto">
+                    Serão o email utilizado na hora da compra, e a senha são os 4 últimos dígitos do seu celular cadastrado durante a compra.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 lg:py-20 px-6 text-center bg-brand-dark">
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="bg-gray-800 p-8 rounded-xl shadow-2xl border-4 border-brand-primary">
+                
+                <h3 class="font-black text-2xl lg:text-3xl text-brand-accent mb-6 flex items-center justify-center space-x-3">
+                    <svg class="w-8 h-8 text-brand-primary stronger-pulse" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.33 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span>Antes de você ir, preciso te alertar:</span>
+                </h3>
+                
+                <p class="font-extrabold text-xl lg:text-2xl text-brand-text-light mb-6">
+                    Você sabe quanto pode custar uma cirurgia pra problemas no assoalho pélvico que surgem em 78% das mulheres no Brasil?
+                </p>
+                
+                <div class="my-8 w-full h-auto bg-gray-700 aspect-[16/5] flex items-center justify-center p-8 rounded-lg">
+                    <span class="text-gray-400 font-serif text-sm">
+                        <img src="img/disclaimer.png" alt="Pesquisa do google feita para alertar">
+                    </span>
+                </div>
+                
+                <p class="font-serif text-lg lg:text-xl text-gray-300 mb-6">
+                    Entre R$5 a R$20 MIL. Este é apenas um dos prejuízos que você poderá enfrentar, dependendo da gravidade da situação.
+                </p>
+
+                <p class="font-serif text-lg lg:text-xl text-gray-300 mb-6">
+                    Se a gente fosse calcular os prejuízos na autoestima e amor próprio, vida pessoal, profissional e íntima, nos relacionamentos… não precisaríamos nem completar a equação pra entender que essa conta não fecha.
+                </p>
+
+                <p class="font-bold text-xl lg:text-2xl text-brand-primary mb-6">
+                    Assista ao vídeo abaixo e descubra a sua melhor e última chance do ano de finalmente resolver seus problemas de saúde íntima pela raiz. Você merece viver o extraordinário, seja dentro ou fora da cama.
+                </p>
+
+                <div class="my-8 w-full aspect-video bg-black flex items-center justify-center border border-gray-700 rounded-lg">
+                    <span class="text-gray-400 font-serif text-lg">
+                        [Placeholder para o Vídeo de Vendas]
+                    </span>
+                </div>
+
+                <div class="mt-8 text-left">
+                    <p class="font-bold text-xl text-brand-accent mb-4">
+                        Adquirindo o Ritmo Íntimo no combo promocional da Black Íntimas, você:
+                    </p>
+                    <ul class="list-none space-y-2 font-serif text-lg text-gray-300 pl-0 benefit-list">
+                        <li>Ganha 2 anos extra de acesso ao APP</li>
+                        <li>Terá encontros de MENTORIAS mensais AO VIVO comigo</li>
+                        <li>Acessa a Comunidade Íntimas, onde poderá participar de concursos e premiações exclusivas para alunas</li>
+                        <li>Recebe o acesso ao Maestro do Prazer, meu novo curso de pompoarismo masculino</li>
+                        <li>Ganha meu curso de Dança Sensual</li>
+                        <li>Ganha o Livro 101 Preliminares</li>
+                    </ul>
+                </div>
+
+                <div class="mt-10">
+                    <p class="font-black text-lg text-brand-text-light mb-4">
+                        por até
+                    </p>
+                    <p class="font-black text-5xl text-brand-text-light mb-6">
+                        <span class="text-brand-accent">12X de R$ 39,62</span>
+                    </p>
+                    <a href="#" class="cta-button inline-block text-white uppercase rounded-lg">
+                        <span class="responsive-button-text">QUERO APROVEITAR A PROMOÇÃO AGORA</span>
+                    </a>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <footer class="py-10 bg-brand-dark text-center px-6"> 
+        <p class="font-serif text-sm text-gray-400">© 2025 Camila Gutz. Todos os direitos reservados.</p> 
+    </footer>
+
+</body>
+</html>
